@@ -1,0 +1,501 @@
+customer_id,customer_code,customer_name,billing_address,city,postal_code,country_name,credit_limit,account_tier,is_active,region_id,created_at
+1,1,Wikizz,82 Summit Junction,Magdalena,,Peru,7849,Gold,true,2,12/20/2024
+2,2,Fatz,64 Oneill Point,Xinzhou,,China,27683,Bronze,true,2,1/22/2024
+3,3,Thoughtbridge,905 Logan Lane,Ubay,6315,Philippines,2902,Silver,true,1,11/2/2024
+4,4,Feedfish,85188 Jenna Crossing,Krasnotur’insk,624449,Russia,22731,Silver,true,3,4/23/2024
+5,5,Jabbersphere,9637 Lakeland Trail,Panikian,4327,Philippines,44441,Bronze,true,3,2/19/2023
+6,6,Kwinu,822 Bobwhite Point,Surkh Bilandī,,Afghanistan,4062,Silver,false,4,2/1/2024
+7,7,Mymm,9 Mayfield Lane,Ilhabela,11630-000,Brazil,13666,Silver,true,2,12/28/2024
+8,8,Innotype,302 Dahle Drive,Kalabahi,,Indonesia,32123,Gold,false,1,9/10/2023
+9,9,Tagopia,22 Barby Pass,Cidadap,,Indonesia,34464,Bronze,false,3,12/16/2023
+10,10,Thoughtsphere,086 Fair Oaks Road,Shuangjie,,China,14963,Silver,true,3,12/19/2023
+11,11,Ntags,5947 Straubel Lane,Casais de Vera Cruz,3025-353,Portugal,33209,Silver,false,1,10/21/2024
+12,12,Camido,3604 Southridge Terrace,Bahāwalpur,63101,Pakistan,39247,Bronze,true,1,2/10/2024
+13,13,Rhynoodle,7256 Badeau Crossing,Nehe,,China,14921,Gold,true,2,12/24/2024
+14,14,Buzzster,866 Lerdahl Crossing,Taixi,,China,48758,Silver,false,4,2/12/2023
+15,15,Blognation,81 Badeau Trail,Takanosu,989-0222,Japan,44150,Gold,true,3,3/16/2024
+16,16,Tanoodle,75 Kings Drive,Pembroke,K8B,Canada,28799,Gold,true,2,7/2/2023
+17,17,Tagfeed,2 Esker Crossing,Toubao,,China,42257,Bronze,true,1,3/6/2023
+18,18,Thoughtstorm,6 Trailsway Drive,Marietta,30061,United States,8093,Silver,true,3,7/26/2024
+19,19,Zoombeat,5 Autumn Leaf Road,Stalbe,,Latvia,18378,Silver,false,1,6/6/2023
+20,20,Skippad,61446 Kennedy Way,Jiuxian,,China,42272,Gold,false,1,9/16/2024
+21,21,Kimia,5709 Main Way,Golden,J9Z,Canada,45305,Gold,true,3,11/20/2024
+22,22,Trilia,7096 Vermont Center,La Playosa,5911,Argentina,7719,Gold,false,2,3/25/2024
+23,23,Ntags,73 1st Circle,Athens,,Greece,45880,Gold,false,2,12/20/2024
+24,24,Linklinks,0367 Hudson Court,Davydovo,142641,Russia,25546,Gold,false,1,2/7/2023
+25,25,Flashspan,53 Nevada Way,Cajuru,14240-000,Brazil,11996,Silver,true,1,6/29/2023
+26,26,Skinder,085 Muir Park,Verkhnyaya Belka,,Ukraine,11020,Bronze,false,1,9/18/2024
+27,27,Twitternation,06006 Kedzie Place,Gressier,,Haiti,10227,Gold,false,4,10/20/2023
+28,28,Oyope,7 Prentice Street,Jämsänkoski,42301,Finland,4338,Silver,true,2,9/24/2023
+29,29,Zoombeat,5 Pennsylvania Place,Moreno,54800-000,Brazil,48363,Gold,true,3,3/5/2024
+30,30,Latz,9 Oak Valley Road,Nusajaya,,Indonesia,44098,Bronze,true,3,2/17/2024
+31,31,Thoughtbridge,375 Union Lane,Arrepiado,2140-605,Portugal,6153,Gold,false,3,11/14/2023
+32,32,Yambee,09 1st Street,Město,364 61,Czech Republic,27606,Bronze,true,4,11/17/2023
+33,33,Eidel,6356 Rusk Crossing,San Bernardino,92415,United States,38319,Gold,true,4,1/30/2024
+34,34,Jamia,3730 Fremont Place,Kihancha,,Kenya,49245,Gold,true,3,4/11/2023
+35,35,Browsetype,25 Caliangt Junction,Changshan,,China,47929,Silver,false,3,1/20/2023
+36,36,Browsecat,1 Carey Way,Mahaddayweyne,,Somalia,41627,Bronze,true,3,7/18/2024
+37,37,Shufflester,54532 Westport Alley,La Garenne-Colombes,92959 CEDEX,France,4676,Bronze,true,2,4/25/2023
+38,38,Oodoo,064 High Crossing Court,Burgos,8424,Philippines,7366,Gold,false,4,8/19/2023
+39,39,Aimbu,6 Pleasure Point,Nova Iguaçu,26000-000,Brazil,1292,Silver,false,3,10/27/2023
+40,40,Thoughtsphere,3 Comanche Point,Tuban,3803,Philippines,8512,Gold,true,2,9/20/2023
+41,41,Photojam,90290 Lerdahl Place,Naawan,9023,Philippines,26451,Bronze,true,2,7/27/2023
+42,42,Roodel,15422 Gerald Crossing,Tembladera,,Peru,23982,Silver,true,1,10/14/2023
+43,43,Youspan,674 Donald Drive,La Sierpe,,Cuba,44924,Silver,true,2,8/11/2024
+44,44,Trilia,03 Lake View Plaza,Travesía,,Honduras,38602,Bronze,true,1,1/12/2024
+45,45,Lazzy,6 Thackeray Circle,New York City,10125,United States,21849,Silver,false,2,5/1/2023
+46,46,Twimbo,30 Raven Street,Sinamar,1230,Philippines,45779,Silver,false,4,2/10/2023
+47,47,LiveZ,8 Thackeray Place,Jiangkou,,China,49996,Silver,true,4,7/31/2024
+48,48,Realcube,8 Sugar Terrace,Padasono,,Indonesia,41300,Gold,true,1,3/23/2023
+49,49,Photobug,777 Manley Trail,Batang,,Indonesia,5496,Silver,false,3,2/18/2024
+50,50,Brightdog,5 7th Court,Sabangan,2622,Philippines,7672,Bronze,true,4,10/22/2023
+51,51,Camimbo,32 Autumn Leaf Lane,Uglich,152616,Russia,19687,Silver,true,4,12/6/2024
+52,52,Brainverse,28962 Glacier Hill Parkway,Quevedo,,Ecuador,27576,Silver,true,4,12/24/2024
+53,53,Devpoint,18 Farmco Hill,Besko,38-524,Poland,3376,Bronze,false,2,1/31/2023
+54,54,Voonte,7 Anderson Hill,Göteborg,417 57,Sweden,35648,Silver,false,4,6/25/2024
+55,55,Yombu,8 Hanson Street,Rio das Pedras,13390-000,Brazil,34223,Silver,false,3,5/27/2024
+56,56,Linktype,41561 Hansons Alley,Dorp Antriol,,"Bonaire, Saint Eustatius and Saba ",48419,Gold,false,3,4/14/2024
+57,57,Blogspan,2 Cherokee Lane,Anren Chengguanzhen,,China,8471,Bronze,false,3,7/31/2023
+58,58,Brainverse,343 Moland Hill,Södertälje,151 22,Sweden,24928,Silver,false,3,9/29/2023
+59,59,Rooxo,03 Iowa Junction,Dingli,DGL,Malta,3151,Gold,false,3,7/23/2023
+60,60,Jayo,3427 Stephen Way,Tierp,815 24,Sweden,33553,Silver,true,1,5/7/2024
+61,61,Realbuzz,7 Waywood Road,Lethem,,Guyana,28810,Gold,false,4,1/11/2024
+62,62,Twitterlist,82011 Boyd Pass,Ban Dung,41190,Thailand,28472,Silver,false,3,7/17/2023
+63,63,Quire,52 Towne Crossing,Kafr Sawm,,Jordan,47762,Gold,false,3,5/25/2024
+64,64,Zoomdog,833 Quincy Terrace,Kastsyukowka,,Belarus,10787,Gold,false,1,11/3/2024
+65,65,Devify,7 Eastwood Crossing,Tallahassee,32304,United States,49371,Silver,false,2,4/22/2023
+66,66,Oyonder,92833 Mayer Court,Charopó,,Greece,24840,Gold,true,4,10/17/2024
+67,67,Pixonyx,010 Warner Circle,Carcavelos,4620-031,Portugal,49281,Silver,true,2,10/21/2024
+68,68,Realcube,532 Loomis Way,Amnat Charoen,70160,Thailand,13931,Bronze,true,1,4/1/2023
+69,69,Oozz,3 Springs Lane,Fengting,,China,29054,Silver,true,3,8/11/2024
+70,70,Quinu,62858 3rd Park,Mombasa,,Kenya,32343,Bronze,false,3,10/16/2024
+71,71,Trunyx,4 Nelson Pass,Baní,10505,Dominican Republic,28641,Silver,false,1,7/29/2023
+72,72,Oyope,036 Iowa Place,Salt Lake City,84125,United States,46876,Silver,true,4,12/15/2023
+73,73,Rhycero,95 Stone Corner Point,Kotlyarevskaya,361218,Russia,5186,Bronze,true,2,12/7/2024
+74,74,Realblab,82100 Eggendart Alley,Gandu,,Indonesia,9626,Bronze,true,2,4/20/2024
+75,75,Blognation,49 Magdeline Junction,Guaraciaba do Norte,62380-000,Brazil,39702,Gold,false,3,7/7/2023
+76,76,Oloo,01993 Blackbird Junction,Riosucio,178057,Colombia,29900,Bronze,true,3,4/13/2023
+77,77,Kwideo,7139 Pawling Pass,Xihongmen,,China,44531,Silver,false,1,5/16/2023
+78,78,Kanoodle,78867 Ridge Oak Road,Kičevo,6262,Macedonia,27347,Gold,false,2,7/31/2023
+79,79,Blogtag,2 Kensington Pass,Nuoxizhi,,China,38553,Silver,false,1,2/5/2023
+80,80,Blogspan,3 Harbort Drive,Yangiobod,,Uzbekistan,19516,Bronze,false,3,9/16/2023
+81,81,Zoomzone,2945 Havey Park,Huitong,,China,7967,Silver,false,3,12/10/2023
+82,82,Yodo,1 Shoshone Crossing,Sukošan,23206,Croatia,44700,Gold,false,4,7/25/2024
+83,83,BlogXS,7 Tony Road,Lüyang,,China,17526,Silver,true,2,4/4/2023
+84,84,Chatterpoint,8729 Comanche Crossing,Distracción,444008,Colombia,29489,Silver,false,2,11/4/2023
+85,85,Ooba,247 Atwood Plaza,Kraskino,692715,Russia,30146,Bronze,false,2,11/18/2024
+86,86,Lazz,8 American Ash Terrace,Denver,80262,United States,44111,Gold,true,4,9/26/2024
+87,87,Youbridge,842 Iowa Parkway,San Vicente de Bique,,Panama,23037,Bronze,false,1,3/19/2024
+88,88,Tazz,3790 Longview Parkway,Orléans,45947 CEDEX 9,France,19814,Silver,true,2,11/11/2024
+89,89,Photobean,7 Mitchell Court,Cibenda,,Indonesia,8026,Bronze,false,4,11/15/2024
+90,90,Thoughtblab,74 Kensington Road,Vidin,3776,Bulgaria,45492,Silver,true,2,4/30/2024
+91,91,Photospace,5 Hintze Crossing,Åtvidaberg,597 50,Sweden,6577,Bronze,true,4,11/10/2023
+92,92,Browseblab,48875 Arizona Circle,Bayan Uula Sumu,,Mongolia,37291,Bronze,false,4,11/15/2023
+93,93,Jetwire,92 Alpine Court,Llama,,Peru,35255,Silver,false,3,8/3/2023
+94,94,Eabox,9 Warrior Terrace,Lasek,34-471,Poland,15591,Bronze,false,1,1/10/2024
+95,95,Linkbridge,9 Novick Parkway,Pulong Sampalok,3009,Philippines,17582,Gold,true,2,4/6/2024
+96,96,Brightbean,78 Havey Park,Fuerte,2703,Philippines,1429,Silver,true,1,3/6/2024
+97,97,Yoveo,832 2nd Road,Jobabo,,Cuba,16982,Gold,true,4,7/31/2023
+98,98,Myworks,805 Meadow Ridge Junction,Aş Şaff,,Egypt,22299,Silver,false,4,2/6/2023
+99,99,Edgeclub,7598 Shopko Avenue,Sanjian,,China,32385,Silver,true,4,9/30/2024
+100,100,Latz,830 Donald Place,Wudabao,,China,4397,Silver,false,2,9/12/2024
+101,101,Vidoo,091 Ronald Regan Alley,Konkwesso,,Nigeria,49334,Bronze,true,3,3/9/2023
+102,102,Devshare,38 Holy Cross Park,Plaza de Caisán,,Panama,47723,Gold,true,1,9/20/2023
+103,103,Rhybox,00 Weeping Birch Parkway,Guantang,,China,2798,Bronze,false,2,3/19/2024
+104,104,Ainyx,57526 Carpenter Pass,Apaga,,Armenia,4027,Silver,false,2,4/1/2024
+105,105,Zava,56314 Paget Junction,Hurghada,,Egypt,49328,Silver,true,2,1/3/2024
+106,106,Yamia,60827 Holmberg Parkway,Togu,,Indonesia,41390,Silver,false,3,7/26/2023
+107,107,Edgewire,37 Huxley Plaza,Makarov,694903,Russia,11301,Bronze,true,1,7/18/2024
+108,108,Twitternation,1397 Ridge Oak Park,Wucun,,China,26380,Gold,false,1,3/14/2024
+109,109,Lajo,113 Mockingbird Court,Old Kilcullen,R56,Ireland,35441,Silver,true,4,9/29/2023
+110,110,Twitterbeat,7827 Village Green Plaza,Rukungiri,,Uganda,13050,Bronze,true,1,9/8/2023
+111,111,Camido,88771 6th Parkway,Dalo,,Indonesia,35126,Bronze,true,2,6/11/2024
+112,112,Twitterlist,3 Fremont Avenue,Yonggu,,China,42077,Bronze,false,4,5/6/2023
+113,113,Yombu,15 Nevada Lane,Maao,6124,Philippines,9323,Silver,true,3,10/11/2023
+114,114,Voomm,97170 Bay Hill,Tulung,,Indonesia,12227,Silver,false,2,12/4/2024
+115,115,Browsetype,3667 Doe Crossing Junction,Cholet,49309 CEDEX,France,27028,Silver,false,1,8/31/2024
+116,116,Divanoodle,65 Farragut Pass,Gahe,,China,3887,Silver,false,4,5/5/2023
+117,117,Nlounge,619 Hanover Plaza,Sukagawa,378-0401,Japan,1558,Silver,false,2,8/21/2023
+118,118,Dynazzy,27 Weeping Birch Place,Bentengjawa,,Indonesia,16769,Silver,true,1,3/31/2024
+119,119,Zoomlounge,993 Sloan Road,Bobrowice,66-627,Poland,9099,Gold,true,3,2/28/2023
+120,120,Skiptube,321 Green Pass,Tsumeb,,Namibia,43446,Bronze,false,2,12/18/2024
+121,121,Mudo,4076 Eastwood Court,Františkovy Lázně,351 01,Czech Republic,41760,Bronze,false,2,1/24/2024
+122,122,DabZ,1 Comanche Place,Santa Luzia,58600-000,Brazil,42593,Bronze,true,2,8/31/2024
+123,123,Eayo,073 Trailsway Parkway,Monte Aprazível,15150-000,Brazil,1480,Silver,false,2,12/4/2024
+124,124,Tagcat,1 Tennessee Junction,Pakong,,Indonesia,3857,Gold,false,2,6/12/2024
+125,125,Fivechat,49914 Milwaukee Parkway,Jatake,,Indonesia,9717,Gold,false,2,7/4/2024
+126,126,Devify,55 Schurz Lane,Ráječko,679 02,Czech Republic,13364,Gold,false,1,12/29/2023
+127,127,Rhynoodle,44555 Nobel Trail,Shengze,,China,35501,Bronze,true,1,6/20/2023
+128,128,Oyope,439 Service Parkway,Sergokala,307351,Russia,41849,Silver,false,1,3/18/2023
+129,129,Yadel,7 Mifflin Avenue,Tyczyn,36-020,Poland,24768,Bronze,true,3,2/5/2023
+130,130,Vipe,2399 Stone Corner Circle,Puutura,,Indonesia,16947,Silver,false,1,12/21/2024
+131,131,Wordtune,1476 Karstens Junction,Panjakent,,Tajikistan,13019,Bronze,false,2,8/15/2023
+132,132,Browsetype,272 Petterle Way,Fuchang,,China,41864,Gold,true,3,2/14/2024
+133,133,Gevee,64717 Donald Street,Lankaran,,Azerbaijan,48764,Bronze,false,3,4/10/2024
+134,134,Zoombeat,79 Thierer Crossing,Duanjia,,China,39970,Silver,true,2,5/7/2023
+135,135,Quaxo,2597 Northview Trail,Kobylanka,73-108,Poland,42593,Gold,false,1,2/17/2024
+136,136,Eayo,6673 Calypso Avenue,Przystajń,42-141,Poland,5965,Bronze,false,3,10/24/2023
+137,137,Wordtune,856 Upham Way,Mina Clavero,5889,Argentina,20972,Gold,true,1,1/20/2023
+138,138,Bluejam,7818 Trailsway Street,Hongjia,,China,34136,Bronze,true,1,10/3/2023
+139,139,Lajo,8 Prairieview Center,Yinzhu,,China,11150,Bronze,false,1,10/23/2023
+140,140,Eare,20064 Sachs Street,Criuleni,MD-4801,Moldova,22142,Silver,true,3,2/24/2023
+141,141,Quamba,52 Kensington Court,Staryye Atagi,366303,Russia,37231,Bronze,true,4,12/16/2024
+142,142,Babbleset,103 Anderson Lane,Nueva Gerona,,Cuba,42873,Gold,true,3,9/26/2023
+143,143,Ailane,4314 Bluestem Trail,Tānk,82001,Pakistan,48906,Gold,true,2,10/31/2023
+144,144,Skyndu,417 Nancy Crossing,Bajo,,Indonesia,26968,Bronze,false,4,12/1/2023
+145,145,Centimia,41 Dexter Parkway,Vidnoye,142717,Russia,12977,Bronze,true,1,9/1/2023
+146,146,Jabbersphere,2 Stang Point,Znamenskoye,366814,Russia,35507,Silver,false,3,10/29/2024
+147,147,Jaloo,93810 Dahle Way,Kostelec nad Černými Lesy,281 63,Czech Republic,28956,Gold,false,3,9/25/2023
+148,148,Kazio,199 Green Ridge Avenue,Benito Juarez,57000,Mexico,14863,Gold,true,2,4/8/2023
+149,149,Roomm,24 Bayside Drive,Stanovoye,399734,Russia,44009,Silver,true,1,11/19/2024
+150,150,Tambee,637 Magdeline Way,Laem Sing,22130,Thailand,39318,Bronze,true,3,10/2/2023
+151,151,Thoughtworks,59 Lakewood Hill,Ropice,739 61,Czech Republic,21033,Silver,true,4,12/6/2024
+152,152,Twiyo,42314 Moland Drive,Pukë,,Albania,33819,Silver,true,4,10/22/2023
+153,153,Dazzlesphere,5 Kim Street,Mutis,276038,Colombia,10821,Gold,false,2,11/27/2024
+154,154,Babblestorm,23 Bay Way,Sambava,,Madagascar,9579,Gold,true,1,9/9/2023
+155,155,Browsedrive,2 Hovde Way,Monte Novo,7780-256,Portugal,29490,Bronze,false,1,1/25/2024
+156,156,Nlounge,47 Mesta Place,Jiaoxie,,China,18078,Silver,true,3,7/3/2023
+157,157,Youfeed,6327 Heffernan Alley,Sanjian,,China,2432,Gold,true,1,1/5/2024
+158,158,Kamba,64048 Atwood Trail,Xiangshan,,China,21513,Silver,true,3,1/10/2024
+159,159,Meevee,40 Fairfield Court,Koga,869-0233,Japan,21577,Gold,false,3,5/5/2024
+160,160,Fivebridge,8333 Farmco Street,Górki,39-306,Poland,41288,Gold,true,2,6/30/2023
+161,161,Vinder,35922 Duke Street,Pacapausa,,Peru,14318,Silver,false,3,12/11/2024
+162,162,Browsezoom,2 Bartelt Parkway,Budapest,1086,Hungary,7531,Bronze,false,1,11/28/2024
+163,163,Photobug,39536 Union Court,Xinfeng,,China,46915,Bronze,true,1,9/29/2024
+164,164,Zooveo,860 Schurz Trail,Liugong,,China,23852,Gold,true,3,4/30/2023
+165,165,Eadel,680 Havey Center,Zelmeņi,,Latvia,11545,Gold,false,2,5/29/2023
+166,166,Oyoba,20 Crownhardt Trail,Dayingjie,,China,40768,Bronze,false,2,6/22/2024
+167,167,Geba,4 Park Meadow Avenue,Fafe,4820-009,Portugal,21586,Silver,false,2,11/25/2023
+168,168,Skinte,36 Drewry Road,Paris 03,75139 CEDEX 03,France,40807,Bronze,true,4,10/28/2023
+169,169,Brainverse,049 Grasskamp Drive,Getahovit,,Armenia,17650,Gold,true,3,9/13/2024
+170,170,Kayveo,8 Drewry Alley,Banayoyo,2708,Philippines,3861,Silver,false,4,5/11/2023
+171,171,Roomm,59578 Northport Avenue,Rehnān,,Iran,24591,Silver,false,1,5/30/2024
+172,172,Tekfly,70019 Roxbury Place,Taounza,,Morocco,2766,Gold,false,3,8/19/2024
+173,173,Tazzy,991 Thackeray Pass,Öldziyt,,Mongolia,5420,Bronze,false,4,3/30/2024
+174,174,Plambee,70 Muir Pass,Gunungmalang Satu,,Indonesia,13224,Gold,false,2,4/9/2023
+175,175,Voonix,988 Melvin Point,Sukowidodo Barat,,Indonesia,9488,Silver,true,1,8/12/2023
+176,176,Kamba,38 Randy Court,Xiasi,,China,15605,Silver,false,3,11/24/2023
+177,177,Meedoo,360 3rd Street,Brondong,,Indonesia,47086,Bronze,false,4,3/12/2023
+178,178,Lazzy,68661 Hagan Court,Quilmaná,,Peru,16986,Silver,true,3,4/1/2024
+179,179,Buzzbean,28529 Scoville Plaza,Kuivaniemi,95100,Finland,35527,Bronze,true,4,11/21/2023
+180,180,Realcube,91781 Westend Crossing,Quirinópolis,75860-000,Brazil,11209,Silver,true,3,4/11/2023
+181,181,Browsecat,74 Mayer Drive,San Carlos,232517,Colombia,12726,Silver,false,1,4/29/2024
+182,182,Wordpedia,050 Cambridge Court,Boro Utara,,Indonesia,17665,Bronze,true,1,5/26/2023
+183,183,Eire,388 Pawling Hill,Foča,,Bosnia and Herzegovina,14466,Silver,false,2,6/14/2023
+184,184,Jaxspan,93060 Oak Crossing,Pinayagan Norte,6343,Philippines,15027,Silver,true,1,1/22/2023
+185,185,Latz,33771 Iowa Crossing,Al Madīd,,Yemen,31760,Gold,true,2,3/13/2023
+186,186,Mybuzz,3 Johnson Street,Idah,,Nigeria,40793,Silver,false,1,1/23/2023
+187,187,Avamba,76281 Sloan Crossing,Huasahuasi,,Peru,15957,Bronze,true,2,11/15/2023
+188,188,Browsedrive,1 Myrtle Lane,Fuding,,China,30191,Silver,true,4,6/17/2023
+189,189,Gigazoom,12658 Miller Court,Madette,,Indonesia,34586,Silver,false,1,4/6/2024
+190,190,Thoughtstorm,81938 4th Avenue,Villefranche-sur-Mer,06239 CEDEX,France,25835,Gold,true,3,9/10/2024
+191,191,Tagtune,7897 Elgar Crossing,Gimry,368959,Russia,49476,Silver,false,1,8/30/2024
+192,192,Skimia,50083 Schurz Center,Bodø,8038,Norway,41495,Gold,false,1,11/12/2023
+193,193,Pixonyx,771 Lillian Place,Cibeureum,,Indonesia,28400,Gold,false,4,9/27/2024
+194,194,Skinder,5156 Morning Plaza,Las Palmas,36200,Mexico,5554,Gold,true,2,7/28/2024
+195,195,Skimia,084 Daystar Parkway,Meaux,77104 CEDEX,France,11742,Gold,true,4,5/11/2024
+196,196,Livefish,0918 Bartelt Street,Pomerode,89107-000,Brazil,19163,Silver,true,3,3/13/2024
+197,197,Zoomzone,30528 Service Circle,Beiwucha,,China,23817,Silver,false,1,7/6/2023
+198,198,Riffwire,77694 Esker Center,Jiangkou,,China,31106,Silver,true,3,9/29/2024
+199,199,Tavu,76 Cherokee Terrace,Khánh Hải,,Vietnam,28189,Gold,false,4,7/26/2023
+200,200,Wikibox,4 Riverside Crossing,Abade de Neiva,4750-005,Portugal,17317,Bronze,false,1,5/11/2023
+201,201,Browsetype,98 Clarendon Hill,Turinsk,623900,Russia,20613,Gold,true,4,3/17/2024
+202,202,Shuffletag,913 Redwing Place,Monjas,21006,Guatemala,11758,Silver,false,4,1/27/2024
+203,203,Zoombox,67751 Almo Street,Perstorp,284 92,Sweden,42441,Bronze,false,4,12/8/2023
+204,204,Brainbox,7 Dawn Point,Boshof,8340,South Africa,17241,Silver,true,2,8/17/2023
+205,205,Meemm,00530 Grover Drive,San Francisco,95710,Mexico,14090,Silver,false,3,11/27/2023
+206,206,Dablist,827 Thierer Way,Ndendé,,Gabon,10561,Silver,false,2,3/15/2023
+207,207,Rhynoodle,35 Jay Parkway,Shamanka,666025,Russia,11630,Bronze,false,2,1/5/2023
+208,208,Gigabox,2 Shelley Drive,Budva,,Montenegro,42423,Gold,false,3,10/2/2024
+209,209,Tekfly,73 Arkansas Hill,Karangduren Dua,,Indonesia,21827,Bronze,true,3,2/7/2023
+210,210,Edgeclub,20 Vidon Trail,Heshan,,China,39141,Bronze,true,3,7/5/2024
+211,211,Wikizz,4 Sundown Court,Surenavan,,Armenia,28474,Bronze,true,1,5/19/2023
+212,212,Realbridge,2346 Bluestem Parkway,Wootton,NN4,United Kingdom,37760,Gold,false,2,10/14/2024
+213,213,Avamm,2 Nevada Crossing,Krajan Bejagung,,Indonesia,1447,Silver,false,2,5/3/2024
+214,214,Jamia,31 Colorado Drive,Cuntan,,China,35302,Silver,false,1,12/31/2024
+215,215,Browsetype,9 Main Lane,Guangfu,,China,34914,Silver,true,3,3/24/2024
+216,216,Wikido,8 Ridge Oak Lane,Chrast,538 51,Czech Republic,11237,Bronze,false,2,11/23/2024
+217,217,Vidoo,62160 Nevada Court,Bilyarsk,422920,Russia,37635,Silver,false,4,5/31/2023
+218,218,Topicshots,5 Vidon Park,Cheb,350 02,Czech Republic,2221,Silver,false,3,11/28/2023
+219,219,Aibox,33 Twin Pines Plaza,Irirum,5102,Philippines,37220,Bronze,true,1,6/16/2023
+220,220,Einti,60 Blackbird Court,Santa Eulalia,,Peru,44053,Bronze,true,3,11/4/2024
+221,221,Skilith,8472 Prairieview Parkway,Chelyabinsk,454092,Russia,17071,Bronze,false,1,1/10/2024
+222,222,Wikizz,3629 Prentice Parkway,Bački Petrovac,,Serbia,26343,Gold,true,2,12/8/2024
+223,223,Voonyx,3 Prairieview Avenue,Changmao,,China,13181,Silver,true,1,12/30/2024
+224,224,Wordpedia,7 Caliangt Terrace,Toulouse,31079 CEDEX 5,France,3699,Bronze,true,1,7/5/2024
+225,225,Fatz,0656 Hollow Ridge Junction,Songlong,,China,24203,Silver,true,1,12/25/2023
+226,226,Edgetag,00 Bowman Circle,Nawābganj,6301,Bangladesh,1262,Silver,false,4,12/2/2023
+227,227,Zoonder,31033 Grim Terrace,Xianlin,,China,27221,Bronze,true,4,10/28/2023
+228,228,Voomm,02956 Mayfield Trail,Bragança Paulista,12900-000,Brazil,23006,Gold,false,2,10/19/2024
+229,229,Shufflebeat,901 Portage Terrace,Curitibanos,89520-000,Brazil,22702,Bronze,true,1,8/24/2023
+230,230,Kare,927 Grim Alley,Chavdar,2087,Bulgaria,42249,Bronze,false,1,3/5/2023
+231,231,Babblestorm,69557 Menomonie Point,Kurchaloy,366319,Russia,10889,Silver,true,2,11/17/2024
+232,232,Browsebug,7 Northview Hill,Pang,4103,Philippines,21371,Silver,true,4,9/20/2023
+233,233,Yotz,5 Comanche Alley,Penisihan,,Indonesia,15225,Bronze,true,3,9/27/2024
+234,234,Photobean,4 Surrey Hill,Остров Пасхи,,Chile,38637,Silver,true,2,12/2/2024
+235,235,Snaptags,3513 Katie Place,Quichuay,,Peru,9513,Bronze,true,3,4/23/2024
+236,236,Topicware,505 Everett Street,Oratorio,06006,Guatemala,31553,Silver,false,2,8/10/2023
+237,237,Meevee,51 Kingsford Street,Bojongloa,,Indonesia,10135,Silver,false,3,3/11/2024
+238,238,Zoombeat,6249 Carberry Point,‘Afula ‘Illit,,Israel,41837,Silver,false,1,4/21/2024
+239,239,Skippad,07 Gerald Lane,Katur,,Indonesia,2682,Gold,false,2,2/16/2023
+240,240,Bluejam,319 Rutledge Place,Belfast,L6S,Canada,49778,Silver,false,1,12/9/2023
+241,241,Photolist,66545 Weeping Birch Plaza,Topeka,66617,United States,2918,Silver,true,4,7/12/2024
+242,242,Avamba,50 Little Fleur Drive,Grebenskaya,366101,Russia,31207,Gold,true,1,12/16/2023
+243,243,Pixonyx,8975 Sloan Street,Mang’it Shahri,,Uzbekistan,30567,Gold,true,2,1/28/2024
+244,244,Thoughtsphere,426 Shasta Trail,Youhao,,China,13462,Silver,true,2,9/23/2024
+245,245,Bubblebox,58 Brentwood Pass,Barisan,,Indonesia,32642,Silver,true,3,5/17/2023
+246,246,Nlounge,2991 Londonderry Road,Seminole,34642,United States,17158,Bronze,true,4,10/1/2024
+247,247,Pixope,0062 Heath Terrace,Cacaopera,,El Salvador,48032,Bronze,true,1,11/12/2023
+248,248,Tazzy,8 Canary Street,Moshkovo,633130,Russia,4931,Silver,false,1,7/17/2024
+249,249,Youspan,682 Forest Crossing,Lincoln,68510,United States,13850,Bronze,true,2,7/20/2024
+250,250,Yodel,06 Grayhawk Junction,Vichy,03209 CEDEX,France,43268,Silver,false,3,5/10/2024
+251,251,Vidoo,823 Service Point,Hagonoy,8006,Philippines,43897,Gold,false,3,12/10/2024
+252,252,Trudoo,7291 Autumn Leaf Drive,Paris 10,75485 CEDEX 10,France,20679,Bronze,true,3,7/16/2024
+253,253,Innotype,788 Nobel Hill,Aliaga,3111,Philippines,41302,Bronze,false,2,4/13/2024
+254,254,Photofeed,9085 Dryden Place,Santos Evos,3505-318,Portugal,36006,Silver,false,3,6/21/2024
+255,255,Flipstorm,362 Ridgeway Junction,Chabu,,China,42339,Bronze,true,2,11/2/2024
+256,256,Flashset,9 Muir Hill,Na Khu,70170,Thailand,48262,Bronze,false,3,11/23/2023
+257,257,Tambee,4736 Corben Trail,Sapeken,,Indonesia,44659,Bronze,false,2,12/19/2024
+258,258,Skimia,797 Warbler Park,Caigangan,5103,Philippines,5625,Gold,false,4,4/24/2023
+259,259,Thoughtmix,2 Summit Center,Chacapalpa,,Peru,22542,Silver,false,1,5/7/2024
+260,260,Skyndu,8286 5th Court,Fès,,Morocco,17437,Gold,false,1,6/11/2023
+261,261,Dabjam,99 Pine View Terrace,Haukipudas,90840,Finland,36403,Bronze,true,4,12/30/2023
+262,262,LiveZ,54465 Ronald Regan Terrace,Strizhi,612090,Russia,18781,Bronze,false,2,2/15/2023
+263,263,Tazzy,77469 Meadow Valley Trail,Pyzdry,62-310,Poland,44820,Bronze,false,1,5/23/2023
+264,264,Devcast,158 Mayer Street,Caihua,,China,24532,Bronze,false,1,4/28/2023
+265,265,Blogtags,3600 Hintze Avenue,Yanshou,,China,22940,Gold,true,4,12/16/2023
+266,266,Jabbertype,614 Kennedy Hill,Panbang,,Bhutan,21435,Gold,false,1,3/31/2023
+267,267,Voomm,71 Talisman Plaza,Rimpeso,0550,Philippines,21668,Bronze,true,1,3/24/2024
+268,268,Browsetype,3 Cardinal Parkway,Jinotega,,Nicaragua,18888,Bronze,false,3,1/9/2024
+269,269,Dynava,52949 Di Loreto Alley,Sv. Trojica v Slov. Goricah,2236,Slovenia,23204,Bronze,false,4,12/9/2024
+270,270,Meevee,51531 Sugar Hill,Buliran,3100,Philippines,37099,Gold,true,1,7/17/2023
+271,271,Photofeed,16 Gina Lane,Changling,,China,6011,Bronze,true,3,2/24/2024
+272,272,Divape,0065 Meadow Ridge Court,Shangchewan,,China,24060,Gold,true,4,2/2/2023
+273,273,Feedfish,02523 David Crossing,Apeldoorn,7329,Netherlands,8247,Silver,false,4,4/9/2023
+274,274,Devify,3620 Comanche Trail,Barda,,Azerbaijan,41102,Silver,false,2,1/30/2023
+275,275,Quimm,459 2nd Alley,Shymkent,,Kazakhstan,47467,Gold,true,3,10/23/2024
+276,276,Rooxo,21447 Stuart Lane,Gia Ray,,Vietnam,22030,Gold,true,4,1/16/2023
+277,277,Innotype,69694 Dwight Terrace,Shaguotun,,China,36788,Gold,false,1,9/15/2023
+278,278,Topicware,06572 Springview Alley,Bergamo,24129,Italy,1785,Gold,false,1,9/16/2024
+279,279,Jabbersphere,33207 Superior Park,Piltown,T34,Ireland,42818,Gold,false,1,6/28/2024
+280,280,Browseblab,13492 Katie Lane,Shamboyacu,,Peru,38754,Bronze,true,1,8/27/2024
+281,281,Yodo,61989 Fordem Terrace,Tumpakkepuh,,Indonesia,16530,Gold,true,4,3/25/2023
+282,282,Meetz,6 Bobwhite Street,Taiyu,,China,37335,Gold,false,2,7/24/2023
+283,283,Jabbercube,29453 Wayridge Place,Huilong,,China,25756,Bronze,true,2,4/16/2024
+284,284,Browsecat,1 Heath Road,Santa Cruz,5105,Philippines,18466,Gold,true,1,11/28/2023
+285,285,Yambee,0667 Kennedy Lane,Toledo,43635,United States,46558,Bronze,false,1,5/10/2023
+286,286,Brainlounge,70565 Carberry Point,Ivanteyevka,142139,Russia,35135,Silver,false,2,1/23/2024
+287,287,Skinder,7 Morning Terrace,Baozi,,China,23401,Gold,true,3,11/8/2024
+288,288,Linkbuzz,2 Granby Terrace,Spirovo,422338,Russia,16751,Silver,false,2,11/24/2023
+289,289,Jabbersphere,1 Old Shore Parkway,Kosmach,,Ukraine,10845,Gold,true,2,12/2/2023
+290,290,Quatz,979 Emmet Plaza,Placer,8405,Philippines,33508,Gold,false,1,10/25/2024
+291,291,Linkbridge,56162 Doe Crossing Alley,Fumin,,China,2218,Silver,true,2,7/26/2024
+292,292,Flashspan,48989 Roth Place,Shuitou,,China,25439,Silver,false,1,3/5/2024
+293,293,Zoombox,73 Autumn Leaf Plaza,Bolinao,2406,Philippines,22469,Gold,false,3,9/12/2024
+294,294,Dazzlesphere,1 Del Mar Road,Jindou,,China,29224,Gold,true,4,2/13/2024
+295,295,Trilith,5 Golf Course Court,Istres,13807 CEDEX,France,4190,Gold,true,2,5/6/2023
+296,296,Camido,4923 Leroy Drive,Osypenko,,Ukraine,37968,Silver,true,2,4/5/2023
+297,297,Mynte,1 Fuller Street,Mainri,,China,8125,Gold,false,4,11/27/2024
+298,298,Browsetype,141 Sachtjen Road,Miami,33175,United States,36199,Silver,false,1,4/5/2024
+299,299,Edgeify,6 Oak Valley Road,Formiga,35570-000,Brazil,19504,Gold,false,2,9/27/2023
+300,300,Buzzdog,02 Caliangt Drive,Khorlovo,140235,Russia,2969,Bronze,true,2,4/15/2023
+301,301,Trilia,3 Dennis Alley,Jose Maria Morelos,94453,Mexico,46246,Silver,true,2,1/27/2023
+302,302,Zoovu,340 Larry Alley,Antíparos,,Greece,14284,Bronze,false,4,2/20/2023
+303,303,Eare,04 Doe Crossing Drive,Kozmice,747 11,Czech Republic,17727,Silver,false,3,2/1/2023
+304,304,Tagopia,4 Lillian Junction,Hövsan,,Azerbaijan,9251,Silver,false,2,5/28/2024
+305,305,Reallinks,2196 Maryland Lane,Hutou,,China,24885,Gold,true,3,6/15/2024
+306,306,Photojam,66776 Ilene Avenue,Góis,3330-304,Portugal,26954,Bronze,false,4,4/28/2023
+307,307,Photobean,80 Hauk Drive,Cibuah,,Indonesia,12258,Gold,true,1,2/16/2023
+308,308,Rhynoodle,7589 Ryan Junction,Alfonso,4123,Philippines,9527,Silver,true,2,7/3/2023
+309,309,Wordify,01 Washington Parkway,Rivadavia,3081,Argentina,9269,Silver,false,4,8/9/2024
+310,310,Voonte,4794 Summerview Place,Aguachica,205018,Colombia,33213,Bronze,false,3,11/29/2023
+311,311,Avaveo,54481 Waxwing Trail,Bang Ban,13250,Thailand,13874,Gold,false,2,12/6/2023
+312,312,Topicshots,7 Charing Cross Street,Bagulin,2512,Philippines,34275,Gold,false,3,9/2/2023
+313,313,Demizz,719 Sutteridge Point,Cacoal,78975-000,Brazil,8157,Silver,true,4,1/8/2024
+314,314,Kare,7564 Acker Court,Jetis,,Indonesia,15682,Gold,true,4,1/1/2024
+315,315,Twitterbridge,4 Gateway Lane,Bojongbenteng,,Indonesia,12997,Silver,false,1,9/5/2024
+316,316,Edgewire,3336 Manufacturers Lane,Otavalo,,Ecuador,16535,Bronze,false,4,12/18/2023
+317,317,Thoughtworks,51735 Welch Avenue,La Viña,4424,Argentina,48607,Bronze,true,4,2/16/2024
+318,318,Skyndu,732 Rieder Crossing,Nanger,,Indonesia,9496,Gold,true,2,4/26/2024
+319,319,Youbridge,73 Oriole Parkway,Baracatan,1063,Philippines,13920,Silver,false,3,8/7/2024
+320,320,Mynte,536 Union Crossing,Limeil-Brévannes,94454 CEDEX,France,48626,Gold,true,1,1/24/2024
+321,321,Chatterpoint,593 Schlimgen Street,Blagoveshchensk,453430,Russia,48370,Silver,true,2,10/12/2024
+322,322,Meejo,338 Daystar Plaza,Karis,39290,Finland,12383,Bronze,true,1,2/5/2024
+323,323,Quimm,87754 Acker Pass,Tanjungluar,,Indonesia,17012,Gold,true,3,11/4/2023
+324,324,Gabvine,53 Buell Park,Tokār,,Sudan,12472,Silver,false,4,8/14/2024
+325,325,Camimbo,680 Scofield Lane,Peimei,,China,7594,Gold,false,1,6/7/2024
+326,326,Twimbo,51495 Oak Hill,Kohlu,83000,Pakistan,25193,Bronze,false,2,12/31/2024
+327,327,Yodoo,5 David Park,Wolin,72-510,Poland,18227,Bronze,false,4,12/28/2024
+328,328,Shuffledrive,533 Westend Alley,Matamey,,Niger,29577,Silver,true,1,10/25/2023
+329,329,Gigazoom,8647 Hoffman Point,Gunajaya,,Indonesia,38890,Bronze,true,2,1/23/2024
+330,330,Voonte,1 Forest Run Lane,Cabrobó,56180-000,Brazil,32684,Silver,true,1,8/21/2023
+331,331,Devcast,3 Longview Trail,Tataouine,,Tunisia,16377,Bronze,false,4,5/10/2023
+332,332,Oodoo,0604 Bay Street,Pancur,,Indonesia,5147,Silver,true,1,10/6/2024
+333,333,Roombo,3274 Schlimgen Hill,Carapelhos,3070-605,Portugal,5997,Gold,true,1,5/23/2023
+334,334,Meembee,88 Hansons Crossing,La Cruz,36770,Mexico,48211,Silver,true,2,10/14/2023
+335,335,Realmix,03886 Russell Avenue,Sirājganj,5611,Bangladesh,47103,Gold,true,4,1/3/2024
+336,336,Oyonder,82 Stuart Place,El Porvenir,93816,Mexico,37136,Gold,false,4,9/13/2024
+337,337,Geba,78 South Avenue,Wujia,,China,33464,Bronze,false,2,1/6/2024
+338,338,Jaxworks,217 Waxwing Terrace,Taraš,,Serbia,30240,Bronze,false,3,2/21/2023
+339,339,Trunyx,20227 Melby Drive,Batgrām,21041,Pakistan,24922,Gold,false,4,11/18/2024
+340,340,Skyble,54543 Anhalt Street,Macapsing,5103,Philippines,41321,Silver,false,4,8/24/2024
+341,341,Quinu,3 Washington Center,Reina Mercedes,3303,Philippines,5470,Silver,true,2,11/24/2023
+342,342,Thoughtblab,24195 Manufacturers Trail,Mriyunan,,Indonesia,14038,Gold,false,1,5/22/2023
+343,343,Fadeo,7 Ryan Trail,Chyšky,398 53,Czech Republic,41168,Bronze,false,1,4/12/2023
+344,344,Blogtag,19504 Sullivan Point,Yidu,,China,2228,Silver,false,1,12/18/2024
+345,345,Yata,13 Old Shore Crossing,Boac,4900,Philippines,17287,Silver,false,2,12/1/2023
+346,346,Yamia,00 Shoshone Circle,Manakara,,Madagascar,7007,Bronze,true,1,6/26/2024
+347,347,Innotype,8 Stoughton Point,Vlycháda,,Greece,14653,Gold,true,2,9/28/2023
+348,348,Teklist,3 Jana Trail,Manquiring,7104,Philippines,29907,Gold,true,4,10/5/2024
+349,349,Jatri,88998 Cardinal Center,Jūrmala,,Latvia,49845,Silver,true,3,12/8/2023
+350,350,Dynava,93 Fisk Lane,Siewierz,42-470,Poland,17182,Silver,false,1,12/27/2024
+351,351,Twitterlist,0 Texas Point,Mariana,35420-000,Brazil,4492,Silver,true,2,3/1/2024
+352,352,Rhyzio,08659 Sauthoff Street,Huaiyuan Chengguanzhen,,China,34419,Silver,false,3,7/31/2023
+353,353,Linkbuzz,31 Corscot Lane,Apeldoorn,7319,Netherlands,13292,Silver,false,1,6/10/2024
+354,354,Edgetag,90858 Little Fleur Terrace,Castañas,4301,Philippines,29812,Silver,false,3,9/24/2023
+355,355,Photolist,7 Ohio Point,Chiang Yuen,44160,Thailand,15782,Silver,false,4,8/20/2024
+356,356,Realfire,0852 Stephen Lane,Des Moines,50393,United States,14954,Bronze,false,4,2/24/2023
+357,357,Ailane,95869 Dexter Crossing,Songhae,,South Korea,33036,Silver,false,4,8/24/2023
+358,358,Buzzbean,19 Summit Park,Larreynaga,,Nicaragua,5436,Bronze,true,4,6/18/2023
+359,359,Innojam,000 Ludington Parkway,Daszewice,30-533,Poland,30771,Bronze,false,3,4/15/2024
+360,360,Avamba,30 Badeau Parkway,Escazú,10201,Costa Rica,42792,Gold,false,2,6/30/2023
+361,361,Vimbo,910 Lakewood Gardens Circle,Strenči,,Latvia,31860,Bronze,true,2,7/25/2023
+362,362,Twitterbeat,1 Commercial Road,Pakuwon,,Indonesia,8088,Silver,true,3,2/18/2023
+363,363,Jatri,827 Bellgrove Street,Rybache,,Ukraine,14070,Gold,true,3,2/14/2023
+364,364,Quatz,019 Crest Line Circle,Panagyurishte,4527,Bulgaria,15342,Gold,true,4,8/7/2023
+365,365,Voomm,3 Blaine Avenue,Belyy Yar,662927,Russia,21540,Silver,true,2,4/19/2024
+366,366,Realbridge,0844 3rd Drive,Brvenica,1216,Macedonia,41474,Gold,false,2,7/11/2023
+367,367,Fiveclub,6818 Cascade Court,Gulong,,China,30742,Gold,true,4,1/3/2024
+368,368,Ozu,9704 4th Court,Shiquanhe,,China,41502,Gold,false,1,11/25/2023
+369,369,Myworks,84 Springview Park,Anuling,4501,Philippines,16359,Bronze,true,4,6/15/2023
+370,370,Miboo,96761 Artisan Hill,Žlutava,763 61,Czech Republic,14742,Silver,true,4,4/19/2024
+371,371,Blogtag,5856 Victoria Point,Tianyu,,China,23877,Bronze,false,1,10/19/2024
+372,372,Talane,268 7th Road,Várzea Alegre,63540-000,Brazil,23970,Silver,false,2,4/3/2023
+373,373,Realpoint,257 Evergreen Junction,Sanhe,,China,26669,Gold,true,2,8/29/2023
+374,374,Abatz,1811 Clemons Crossing,Hannover,30167,Germany,20805,Gold,false,1,7/31/2023
+375,375,Dablist,30 Meadow Valley Terrace,Conceição do Coité,48730-000,Brazil,23844,Bronze,true,4,3/17/2024
+376,376,Skiptube,99716 Nevada Drive,Kujung,,Indonesia,7904,Gold,true,3,7/7/2023
+377,377,Camido,3191 Maryland Road,Longquan,,China,49777,Gold,true,1,6/13/2024
+378,378,Muxo,35310 Maryland Center,Tuhe,,China,27564,Bronze,true,2,9/23/2023
+379,379,Voolia,82055 Mccormick Place,Mamboma,,Sierra Leone,10838,Silver,false,3,10/12/2023
+380,380,Tagcat,95075 Badeau Center,Fengjiang,,China,28425,Bronze,false,1,9/11/2023
+381,381,Feedspan,08252 Ridgeview Parkway,Masiga,4900,Philippines,24448,Silver,true,4,12/28/2023
+382,382,Vipe,5141 Sundown Road,Tomteboda,173 18,Sweden,40817,Silver,false,4,11/2/2023
+383,383,Demivee,81475 Morningstar Drive,Opochka,182333,Russia,26721,Gold,true,3,2/21/2023
+384,384,Miboo,8 Upham Plaza,Al Wardānīn,,Tunisia,14265,Gold,false,1,5/31/2024
+385,385,Vipe,96 Cody Way,Guangli,,China,12382,Gold,false,2,11/29/2023
+386,386,Centimia,421 Roxbury Alley,Jing’an,,China,48252,Silver,false,4,11/14/2024
+387,387,Yadel,76 Nancy Point,Straszyn,83-010,Poland,30979,Bronze,true,2,2/17/2023
+388,388,Avaveo,12 Lunder Way,Wenfu,,China,28215,Bronze,true,2,9/25/2023
+389,389,Rhyzio,5 Cody Plaza,Asunción,,Paraguay,38660,Silver,false,1,9/9/2024
+390,390,Fivebridge,2827 West Way,Eger,3304,Hungary,4036,Bronze,false,3,2/21/2023
+391,391,Divavu,85844 Magdeline Park,Tiglauigan,7305,Philippines,36418,Silver,false,2,5/11/2024
+392,392,Bubbletube,01257 West Plaza,Yangzi,,China,14195,Bronze,true,4,3/30/2023
+393,393,Skinte,7872 Clarendon Way,Oshawa,L1K,Canada,22591,Bronze,false,2,8/8/2023
+394,394,Eayo,5 Miller Place,Chaoyangdong,,China,23724,Gold,false,3,8/23/2023
+395,395,Jamia,7 Spaight Point,Jiapeng,,China,13497,Bronze,true,2,4/19/2023
+396,396,Vitz,77 Corry Road,Qeshm,,Iran,8214,Gold,false,4,1/22/2024
+397,397,Bubblebox,496 Hazelcrest Way,Lansing,48919,United States,44171,Silver,true,3,8/18/2024
+398,398,Zooveo,249 Shelley Street,Cilated,,Indonesia,36795,Bronze,true,1,12/27/2023
+399,399,Feedfish,985 Goodland Lane,Paraíso,4550-455,Portugal,39792,Gold,true,4,10/15/2023
+400,400,Skidoo,1135 Hovde Place,Kesheng,,China,12644,Bronze,true,3,10/27/2023
+401,401,Babblestorm,799 Troy Street,El Paso,79940,United States,42190,Bronze,true,2,10/29/2024
+402,402,Gabvine,33 Ridgeview Court,Khanu Woralaksaburi,62130,Thailand,33463,Bronze,false,3,11/5/2023
+403,403,Gevee,46980 Pleasure Court,Tohong,,Indonesia,29381,Gold,false,1,12/2/2023
+404,404,Brainsphere,8 Del Mar Alley,Bacun,,China,29981,Silver,true,3,1/26/2023
+405,405,Agimba,02888 Mcguire Parkway,Ipís,10805,Costa Rica,24279,Gold,true,2,4/17/2023
+406,406,Dabtype,6 Carey Point,Milaor,4413,Philippines,43355,Silver,true,4,7/31/2024
+407,407,Jabbersphere,4542 Old Gate Avenue,Sukatani,,Indonesia,1316,Bronze,false,3,5/4/2023
+408,408,Rhycero,2 Nancy Way,Jönköping,555 94,Sweden,3083,Silver,true,1,5/10/2023
+409,409,Voolith,36 Vidon Court,Claremont,7740,South Africa,22926,Gold,false,1,6/20/2023
+410,410,Vipe,4079 Thackeray Road,Chiang Yuen,44160,Thailand,7971,Gold,true,4,6/13/2023
+411,411,Muxo,96 Florence Lane,Kołczygłowy,77-140,Poland,41445,Bronze,true,4,4/27/2024
+412,412,Voolia,9266 Warrior Road,Ntsoudjini,,Comoros,41858,Gold,true,1,4/6/2024
+413,413,Wikizz,9 Londonderry Parkway,Padasono,,Indonesia,33056,Gold,true,2,10/5/2023
+414,414,Muxo,96022 Stoughton Park,Meedhoo,,Maldives,21685,Silver,false,4,2/23/2023
+415,415,Yakijo,0 Thierer Center,Wan’an,,China,34749,Bronze,false,1,10/11/2023
+416,416,Eidel,6 Londonderry Plaza,Skënderbegas,,Albania,19898,Silver,false,1,7/8/2024
+417,417,Oyoloo,46488 Sunbrook Way,Yamaranguila,,Honduras,36465,Gold,false,3,11/23/2023
+418,418,Zazio,6 Main Street,Kuala Terengganu,21009,Malaysia,18814,Gold,true,1,5/29/2024
+419,419,Dabjam,04 Saint Paul Park,Zhuji,,China,39991,Bronze,false,3,5/29/2023
+420,420,Jamia,7 Westport Junction,Tlumach,,Ukraine,17379,Bronze,false,3,9/6/2024
+421,421,Leexo,70 Sage Drive,Santa Cruz,51462,Mexico,6490,Gold,true,2,7/12/2023
+422,422,Janyx,082 Westend Place,Bordeaux,33733 CEDEX 9,France,43254,Bronze,true,2,4/6/2024
+423,423,Gabvine,4 Glacier Hill Pass,Belén de los Andaquíes,186018,Colombia,14279,Bronze,false,3,11/9/2024
+424,424,Jabbersphere,73 Longview Park,Bassar,,Togo,15122,Gold,false,3,7/24/2024
+425,425,Feedmix,71 Bobwhite Alley,Kuanfeu,,Indonesia,3988,Gold,true,3,1/2/2024
+426,426,Trudoo,35 Corben Circle,Dajie,,China,32814,Silver,true,3,2/9/2024
+427,427,Babblestorm,9 Arizona Place,Ligang,,China,5409,Gold,false,1,1/5/2023
+428,428,Vinder,4573 7th Parkway,Fontenay-sous-Bois,94726 CEDEX,France,48033,Gold,true,1,7/22/2023
+429,429,Trudoo,33 Waywood Place,Ciakar,,Indonesia,5729,Gold,true,1,6/12/2023
+430,430,Thoughtmix,785 Muir Drive,Zrenjanin,,Serbia,2131,Bronze,true,1,5/21/2023
+431,431,Lajo,089 Mitchell Circle,Kitale,,Kenya,34539,Gold,true,3,12/3/2023
+432,432,Eire,49282 Vernon Avenue,Huolu,,China,36730,Silver,false,3,1/30/2023
+433,433,Jayo,7 Lillian Place,Stavanger,4025,Norway,7153,Silver,true,3,4/15/2024
+434,434,Jabbersphere,2 Delladonna Junction,Buta,,Democratic Republic of the Congo,12661,Gold,true,1,6/12/2023
+435,435,Kare,4 Killdeer Center,Hanau,63456,Germany,23022,Gold,true,2,3/31/2024
+436,436,Brainbox,46879 Veith Park,Bocaiúva,39390-000,Brazil,13424,Silver,false,1,6/15/2023
+437,437,Bubblemix,495 Cody Drive,Pórto Chéli,,Greece,36862,Bronze,false,4,10/20/2024
+438,438,Shufflebeat,58282 Mandrake Hill,Dongjiao,,China,30531,Gold,true,4,8/23/2024
+439,439,Ailane,7 Drewry Point,Quintas,4730-410,Portugal,28914,Bronze,true,3,3/23/2024
+440,440,Yodo,0549 8th Terrace,Leninsk,456384,Russia,49165,Gold,true,2,1/10/2024
+441,441,Youopia,8368 Fallview Road,Kijini,,Tanzania,28380,Bronze,false,2,7/21/2024
+442,442,Eabox,9 Warrior Terrace,Wutumeiren,,China,14993,Silver,true,1,12/6/2024
+443,443,Skiba,82976 David Road,Burnham,7600,New Zealand,1515,Silver,false,1,10/15/2023
+444,444,Divanoodle,5 Ridge Oak Center,Pengxing,,China,44462,Gold,false,1,8/13/2024
+445,445,Quatz,1290 Upham Pass,Gryaznovskoye,623508,Russia,29320,Bronze,true,3,5/28/2023
+446,446,Feednation,80 Milwaukee Terrace,Melíssia,,Greece,8046,Gold,false,3,12/21/2024
+447,447,Oyoyo,9088 Pearson Center,Għaxaq,GXQ,Malta,4650,Gold,true,4,7/19/2024
+448,448,Demimbu,257 Waywood Alley,Humaitá,98670-000,Brazil,43756,Gold,true,1,10/24/2023
+449,449,Ntags,36246 Green Circle,Paty do Alferes,26950-000,Brazil,21056,Silver,true,2,4/4/2024
+450,450,Zoombeat,53 Melody Crossing,Stockholm,116 23,Sweden,18821,Gold,false,2,2/3/2024
+451,451,Zoombeat,6845 Fieldstone Drive,Komono,811-3122,Japan,26967,Silver,false,3,8/22/2023
+452,452,Npath,4462 Spohn Street,Mlalo,,Tanzania,10999,Gold,true,1,6/16/2023
+453,453,Yamia,21345 New Castle Plaza,Nghi Xuân,,Vietnam,38263,Bronze,false,4,4/7/2024
+454,454,Topdrive,451 Mockingbird Circle,Dos Hermanas,41703,Spain,30764,Silver,true,2,4/15/2023
+455,455,Photofeed,783 Mccormick Road,Panitian,5309,Philippines,36406,Gold,false,3,4/7/2024
+456,456,Mymm,57 Cody Circle,Khakhea,,Botswana,29346,Bronze,true,4,11/23/2024
+457,457,Layo,2959 Fallview Street,Chok Chai,30190,Thailand,44369,Silver,true,1,4/24/2023
+458,458,Plajo,7244 Meadow Vale Terrace,Trois-Rivières,L8J,Canada,20541,Gold,false,2,2/15/2023
+459,459,Thoughtbridge,14 Northland Court,Kagay,1441,Philippines,47745,Bronze,true,1,3/28/2023
+460,460,Quimba,43024 Bluejay Alley,Sainte-Anne-des-Monts,L8P,Canada,17580,Bronze,true,4,3/28/2023
+461,461,Devcast,7838 Bobwhite Court,Jing’an,,China,47191,Silver,true,4,8/22/2023
+462,462,Youbridge,0 Sachs Park,Putrajawa,,Indonesia,28050,Bronze,true,4,5/12/2024
+463,463,Avaveo,56673 Buena Vista Court,Kil’mez’,613570,Russia,4009,Gold,true,3,6/8/2023
+464,464,Zoomlounge,0664 Sullivan Trail,Anbyŏn-ŭp,,North Korea,6102,Gold,true,1,5/21/2023
+465,465,Yata,16 Bobwhite Alley,San Luis,8511,Philippines,3273,Silver,true,2,10/11/2024
+466,466,Jayo,8765 Hintze Place,Maralik,,Armenia,18632,Silver,false,3,4/5/2023
+467,467,Quimm,9 Stone Corner Trail,Beiyang,,China,35361,Gold,false,1,3/23/2023
+468,468,Bluejam,00399 Browning Point,Barbacena,36200-000,Brazil,2002,Silver,true,4,7/31/2024
+469,469,BlogXS,7 Spohn Junction,Haiyanmiao,,China,18047,Gold,true,2,1/7/2024
+470,470,Gabspot,5822 Hanson Point,Xingfu,,China,15733,Silver,false,4,9/13/2024
+471,471,Bluejam,109 Dahle Lane,Faaa,,French Polynesia,18912,Gold,false,3,9/12/2023
+472,472,Tambee,746 Commercial Court,Banjar Sembunggede,,Indonesia,23486,Gold,false,2,2/21/2024
+473,473,Digitube,878 Delaware Pass,Kokop,,Indonesia,42507,Silver,false,1,10/16/2023
+474,474,Kamba,7 Portage Alley,Igcocolo,5029,Philippines,34662,Silver,false,1,9/26/2023
+475,475,Riffpedia,81 Duke Circle,Kuzhu,,China,23166,Bronze,false,3,5/16/2024
+476,476,Skidoo,79355 Badeau Junction,Manukaka,,Indonesia,34658,Gold,true,4,3/28/2023
+477,477,Fatz,63 Prairieview Street,Boyu,,China,18504,Gold,true,2,3/23/2024
+478,478,Topiczoom,604 Park Meadow Crossing,Banjar Sambangan,,Indonesia,15833,Silver,false,4,2/14/2024
+479,479,Muxo,4 Bay Center,Piteå,941 22,Sweden,36051,Gold,false,3,4/18/2023
+480,480,Omba,994 Bowman Center,Sop Pong,30270,Thailand,27664,Gold,false,4,8/27/2024
+481,481,Zazio,65190 Scott Circle,Ābyek,,Iran,49659,Bronze,false,4,10/8/2024
+482,482,Skyba,8 Bellgrove Road,Oklahoma City,73124,United States,17069,Bronze,false,4,8/12/2024
+483,483,Skalith,399 Truax Terrace,Oygon,,Mongolia,48295,Gold,true,4,7/7/2023
+484,484,Rhybox,56390 Union Center,Santa Cruz,5400-674,Portugal,33562,Gold,false,4,10/12/2024
+485,485,Oyoloo,0 Petterle Court,Laifang,,China,27339,Gold,true,4,1/21/2024
+486,486,Yabox,94 Hayes Plaza,Matão,15990-000,Brazil,38907,Bronze,true,2,8/11/2023
+487,487,Voonder,7 Northwestern Alley,Periyiáli,,Greece,24339,Bronze,false,1,10/20/2024
+488,488,Thoughtblab,19 Butternut Place,Oakville,L6J,Canada,45764,Bronze,false,3,4/29/2023
+489,489,Jaxworks,399 Valley Edge Crossing,Guaçuí,29560-000,Brazil,2245,Silver,false,3,2/28/2024
+490,490,Shuffledrive,069 Mifflin Parkway,Pekalongan,,Indonesia,18379,Bronze,true,4,1/23/2024
+491,491,Skidoo,9496 Forest Parkway,Gijon,33209,Spain,5995,Bronze,false,3,4/4/2024
+492,492,Quinu,5 Welch Park,Murowana Goślina,62-096,Poland,49595,Gold,true,4,10/9/2024
+493,493,Fadeo,24464 Banding Center,Bastia,20403 CEDEX,France,44349,Bronze,false,4,10/25/2024
+494,494,Feedfire,045 Lindbergh Parkway,Jieting,,China,28825,Bronze,false,4,7/2/2023
+495,495,Skaboo,09643 Meadow Vale Court,Toulouse,31085 CEDEX 2,France,8808,Bronze,true,3,8/8/2023
+496,496,Blognation,3 High Crossing Plaza,Öldziyt,,Mongolia,19948,Gold,true,3,11/26/2023
+497,497,Yambee,943 Lerdahl Hill,Haeju,,North Korea,31519,Gold,true,3,8/28/2024
+498,498,Zoomcast,57772 Mockingbird Alley,Almodôvar,7700-015,Portugal,48405,Silver,true,1,10/12/2024
+499,499,Meetz,6747 Dovetail Parkway,Tầm Vu,,Vietnam,1695,Bronze,true,4,2/15/2024
+500,500,Youtags,40 Sutherland Trail,Moulay Bouchta,,Morocco,46708,Silver,false,4,1/21/2024
