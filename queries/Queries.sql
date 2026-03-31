@@ -31,3 +31,35 @@ order by first_name asc, last_name desc;
 /* LIMIT / FETCH  */
 select top 10 *
 from dim_customers;
+
+/* Product price ranking by category */
+SELECT
+    product_id,
+    product_name,
+    category_id,
+    list_price,
+    unit_cost,
+    RANK() OVER (
+        PARTITION BY category_id
+        ORDER BY list_price DESC
+    ) AS price_rank_in_category
+FROM dim_products
+WHERE is_active = 1;
+
+/* Product gross margin analysis */
+SELECT
+    product_id,
+    product_name,
+    category_id,
+    unit_cost,
+    list_price,
+    (list_price - unit_cost) AS gross_profit,
+    ROUND(((list_price - unit_cost) / NULLIF(list_price, 0)) * 100, 2) AS gross_margin_pct,
+    CASE
+        WHEN ((list_price - unit_cost) / NULLIF(list_price, 0)) * 100 >= 60 THEN 'High Margin'
+        WHEN ((list_price - unit_cost) / NULLIF(list_price, 0)) * 100 >= 30 THEN 'Medium Margin'
+        ELSE 'Low Margin'
+    END AS margin_category
+FROM dim_products
+WHERE is_active = 1
+ORDER BY gross_margin_pct DESC;
