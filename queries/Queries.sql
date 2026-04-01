@@ -64,7 +64,7 @@ FROM dim_products
 WHERE is_active = 1
 ORDER BY gross_margin_pct DESC;
 
-
+/* Discount impact per product */
 SELECT
     product_id,
     SUM(discount_amount) AS total_discount,
@@ -79,21 +79,15 @@ FROM fact_order_line_items
 GROUP BY product_id
 ORDER BY total_revenue DESC;
 
-/* Ranking line items within each order */
+/* Sales summary per product */
 SELECT
-    line_item_id,
-    order_id,
     product_id,
-    line_number,
-    quantity,
-    unit_price,
-    line_total,
-    RANK() OVER (
-        PARTITION BY order_id
-        ORDER BY line_total DESC
-    ) AS revenue_rank_in_order
+    COUNT(*) AS total_items_sold,
+    SUM(quantity) AS total_quantity,
+    SUM(line_total) AS total_revenue
 FROM fact_order_line_items
-WHERE line_total > 0;
+GROUP BY product_id
+ORDER BY total_revenue DESC;
 
 /* Phase 1 Query 1: Explore high-credit customers */
 SELECT
