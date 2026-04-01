@@ -63,3 +63,59 @@ SELECT
 FROM dim_products
 WHERE is_active = 1
 ORDER BY gross_margin_pct DESC;
+
+
+SELECT
+    product_id,
+    SUM(discount_amount) AS total_discount,
+    SUM(line_total) AS total_revenue,
+    ROUND(SUM(discount_amount) / NULLIF(SUM(line_total), 0) * 100, 2) AS discount_impact_pct,
+    CASE
+        WHEN SUM(discount_amount) / NULLIF(SUM(line_total), 0) > 0.2 THEN 'High Discount'
+        WHEN SUM(discount_amount) / NULLIF(SUM(line_total), 0) > 0.1 THEN 'Medium Discount'
+        ELSE 'Low Discount'
+    END AS discount_level
+FROM fact_order_line_items
+GROUP BY product_id
+ORDER BY total_revenue DESC;
+
+/* Ranking line items within each order */
+SELECT
+    line_item_id,
+    order_id,
+    product_id,
+    line_number,
+    quantity,
+    unit_price,
+    line_total,
+    RANK() OVER (
+        PARTITION BY order_id
+        ORDER BY line_total DESC
+    ) AS revenue_rank_in_order
+FROM fact_order_line_items
+WHERE line_total > 0;
+
+/* Phase 1 Query 1: Explore high-credit customers */
+SELECT
+    customer_id,
+    customer_name,
+    customer_code,
+    billing_address,
+    city,
+    country_name,
+    credit_limit,
+    account_tier
+FROM dbo.dim_customers
+WHERE credit_limit > 45000;
+
+
+/* Phase 1 Query 2: Explore high-value orders */
+SELECT
+    order_id,
+    customer_id,
+    sales_rep_id,
+    order_total,
+    order_date
+FROM dbo.fact_sales_orders
+WHERE order_total > 1000;
+
