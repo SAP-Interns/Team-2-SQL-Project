@@ -63,3 +63,27 @@ SELECT
 FROM dim_products
 WHERE is_active = 1
 ORDER BY gross_margin_pct DESC;
+
+/* Phase 1 Query 1: Explore high-credit customers */
+SELECT
+    customer_id,
+    customer_name,
+    customer_code,
+    billing_address,
+    city,
+    country_name,
+    credit_limit,
+    account_tier
+FROM dbo.dim_customers
+WHERE credit_limit > 45000;
+
+
+/* Phase 1 Query 2: Explore high-value orders */
+SELECT
+    order_id,
+    customer_id,
+    sales_rep_id,
+    order_total,
+    order_date
+FROM dbo.fact_sales_orders
+WHERE order_total > 1000;
