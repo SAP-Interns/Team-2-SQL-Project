@@ -64,7 +64,7 @@ FROM dim_products
 WHERE is_active = 1
 ORDER BY gross_margin_pct DESC;
 
-/* Discount impact analysis per product */
+
 SELECT
     product_id,
     SUM(discount_amount) AS total_discount,
@@ -94,3 +94,28 @@ SELECT
     ) AS revenue_rank_in_order
 FROM fact_order_line_items
 WHERE line_total > 0;
+
+/* Phase 1 Query 1: Explore high-credit customers */
+SELECT
+    customer_id,
+    customer_name,
+    customer_code,
+    billing_address,
+    city,
+    country_name,
+    credit_limit,
+    account_tier
+FROM dbo.dim_customers
+WHERE credit_limit > 45000;
+
+
+/* Phase 1 Query 2: Explore high-value orders */
+SELECT
+    order_id,
+    customer_id,
+    sales_rep_id,
+    order_total,
+    order_date
+FROM dbo.fact_sales_orders
+WHERE order_total > 1000;
+
