@@ -89,6 +89,10 @@ FROM fact_order_line_items
 GROUP BY product_id
 ORDER BY total_revenue DESC;
 
+/* =========================
+   Phase 1 – Validation Queries
+   ========================= */
+
 /* Phase 1 Validation Query 1: Inspect high-credit customer records */
 SELECT
     c.customer_id,
@@ -117,7 +121,11 @@ WHERE o.net_total > 1000
 ORDER BY o.net_total DESC, o.order_id ASC;
 
 
-/*High-value Gold-tier customers with high credit limit*/
+/* =========================
+   Phase 2 – Basic Querying
+   ========================= */
+
+/* Phase 2 Query 1: High-value Gold-tier customers with high credit limit */
 SELECT
     customer_id,
     customer_name,
@@ -131,19 +139,24 @@ WHERE account_tier = 'Gold'
   AND credit_limit > 20000
 ORDER BY credit_limit DESC;
 
-/* High markup products (price 3 times higher than the production cost)*/
+/* Phase 2 Query 2: High markup products (list price more than three times unit cost) */
 SELECT
-	product_id,
-	sku,
-	product_name,
-	unit_cost,
-	list_price,
-	CAST(((list_price - unit_cost) / NULLIF(list_price, 0)) * 100.0 AS DECIMAL(10,2)) AS gross_margin_pct
+    product_id,
+    sku,
+    product_name,
+    unit_cost,
+    list_price,
+    CAST(((list_price - unit_cost) / NULLIF(list_price, 0)) * 100.0 AS DECIMAL(10,2)) AS gross_margin_pct
 FROM dbo.dim_products
 WHERE list_price > 3 * unit_cost
 ORDER BY gross_margin_pct DESC;
 
-/* Gross Revenue by month */
+
+/* =========================
+   Phase 3 – Aggregations & KPIs
+   ========================= */
+
+/* Phase 3 Query 1: Gross revenue by month */
 SELECT
     YEAR(o.created_at) AS order_year,
     MONTH(o.created_at) AS order_month,
@@ -158,11 +171,11 @@ ORDER BY
     order_year,
     order_month;
 
-/* Average Order Value (AOV) per month  */
+/* Phase 3 Query 2: Average Order Value (AOV) per month */
 SELECT
     YEAR(created_at) AS order_year,
     MONTH(created_at) AS order_month,
-    AVG(net_total) AS avg_order_value,
+    ROUND(AVG(net_total), 2) AS avg_order_value,
     COUNT(order_id) AS order_count
 FROM dbo.fact_sales_orders
 GROUP BY
@@ -170,4 +183,4 @@ GROUP BY
     MONTH(created_at)
 ORDER BY
     order_year,
-    order_month; 
+    order_month;
