@@ -157,3 +157,17 @@ GROUP BY
 ORDER BY
     order_year,
     order_month;
+
+/* Average Order Value (AOV) per month  */
+SELECT
+    YEAR(created_at) AS order_year,
+    MONTH(created_at) AS order_month,
+    AVG(net_total) AS avg_order_value,
+    COUNT(order_id) AS order_count
+FROM dbo.fact_sales_orders
+GROUP BY
+    YEAR(created_at),
+    MONTH(created_at)
+ORDER BY
+    order_year,
+    order_month; 
