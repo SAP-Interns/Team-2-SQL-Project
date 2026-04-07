@@ -89,27 +89,98 @@ FROM fact_order_line_items
 GROUP BY product_id
 ORDER BY total_revenue DESC;
 
-/* Phase 1 Query 1: Explore high-credit customers */
+/* =========================
+   Phase 1 – Validation Queries
+   ========================= */
+
+/* Phase 1 Validation Query 1: Inspect high-credit customer records */
+SELECT
+    c.customer_id,
+    c.customer_name,
+    c.customer_code,
+    c.billing_address,
+    c.city,
+    c.country_name,
+    c.credit_limit,
+    c.account_tier
+FROM dbo.dim_customers AS c
+WHERE c.credit_limit > 45000
+ORDER BY c.credit_limit DESC, c.customer_name ASC;
+
+/* Phase 1 Validation Query 2: Inspect high-value sales orders */
+SELECT
+    o.order_id,
+    o.order_number,
+    o.customer_id,
+    o.sales_rep_id,
+    o.order_status,
+    o.net_total,
+    o.order_date_id
+FROM dbo.fact_sales_orders AS o
+WHERE o.net_total > 1000
+ORDER BY o.net_total DESC, o.order_id ASC;
+
+
+/* =========================
+   Phase 2 – Basic Querying
+   ========================= */
+
+/* Phase 2 Query 1: High-value Gold-tier customers with high credit limit */
 SELECT
     customer_id,
     customer_name,
     customer_code,
-    billing_address,
     city,
     country_name,
     credit_limit,
     account_tier
 FROM dbo.dim_customers
-WHERE credit_limit > 45000;
+WHERE account_tier = 'Gold'
+  AND credit_limit > 20000
+ORDER BY credit_limit DESC;
 
-
-/* Phase 1 Query 2: Explore high-value orders */
+/* Phase 2 Query 2: High markup products (list price more than three times unit cost) */
 SELECT
-    order_id,
-    customer_id,
-    sales_rep_id,
-    order_total,
-    order_date
-FROM dbo.fact_sales_orders
-WHERE order_total > 1000;
+    product_id,
+    sku,
+    product_name,
+    unit_cost,
+    list_price,
+    CAST(((list_price - unit_cost) / NULLIF(list_price, 0)) * 100.0 AS DECIMAL(10,2)) AS gross_margin_pct
+FROM dbo.dim_products
+WHERE list_price > 3 * unit_cost
+ORDER BY gross_margin_pct DESC;
 
+
+/* =========================
+   Phase 3 – Aggregations & KPIs
+   ========================= */
+
+/* Phase 3 Query 1: Gross revenue by month */
+SELECT
+    YEAR(o.created_at) AS order_year,
+    MONTH(o.created_at) AS order_month,
+    ROUND(SUM(li.quantity * li.unit_price), 2) AS gross_revenue
+FROM dbo.fact_order_line_items AS li
+JOIN dbo.fact_sales_orders AS o
+    ON li.order_id = o.order_id
+GROUP BY
+    YEAR(o.created_at),
+    MONTH(o.created_at)
+ORDER BY
+    order_year,
+    order_month;
+
+/* Phase 3 Query 2: Average Order Value (AOV) per month */
+SELECT
+    YEAR(created_at) AS order_year,
+    MONTH(created_at) AS order_month,
+    ROUND(AVG(net_total), 2) AS avg_order_value,
+    COUNT(order_id) AS order_count
+FROM dbo.fact_sales_orders
+GROUP BY
+    YEAR(created_at),
+    MONTH(created_at)
+ORDER BY
+    order_year,
+    order_month;

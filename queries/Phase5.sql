@@ -263,3 +263,38 @@ WHERE NOT EXISTS (
       )
 )
 ORDER BY p.product_name;
+
+/* Phase 5 Query 1 - Rank Products by Revenue */
+
+SELECT
+    p.product_name,
+    SUM(oli.line_total) AS total_revenue,
+    RANK() OVER (ORDER BY SUM(oli.line_total) DESC) AS revenue_rank
+
+FROM fact_order_line_items oli
+INNER JOIN dim_products p
+    ON oli.product_id = p.product_id
+
+GROUP BY
+    p.product_name;
+
+/* Phase 5 Query 2 - Monthly Revenue Trend */
+
+WITH monthly_revenue AS (
+    SELECT
+        d.year_num,
+        d.month_num,
+        SUM(oli.line_total) AS total_revenue
+    FROM fact_sales_orders o
+    INNER JOIN fact_order_line_items oli
+        ON o.order_id = oli.order_id
+    INNER JOIN dim_date d
+        ON o.order_date_id = d.date_id
+    GROUP BY
+        d.year_num,
+        d.month_num
+)
+
+SELECT *
+FROM monthly_revenue
+ORDER BY year_num, month_num;
