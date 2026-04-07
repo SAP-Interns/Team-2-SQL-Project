@@ -112,3 +112,40 @@ LEFT JOIN dim_date d
     AND d.full_date >= DATEADD(MONTH, -12, GETDATE())
 WHERE d.date_id IS NULL
   AND p.is_active = 1;
+
+  
+  /* Phase 4 Query 1 - Top Customers by Revenue */
+SELECT
+    c.customer_name,
+    r.country_name,
+    SUM(oli.line_total) AS total_revenue
+
+FROM fact_sales_orders o
+INNER JOIN fact_order_line_items oli
+    ON o.order_id = oli.order_id
+INNER JOIN dim_customers c
+    ON o.customer_id = c.customer_id
+INNER JOIN dim_regions r
+    ON o.region_id = r.region_id
+
+GROUP BY
+    c.customer_name,
+    r.country_name
+
+ORDER BY total_revenue DESC;
+
+/* Phase 4 Query 2 - Average Discount by Category */
+SELECT
+    cat.category_name,
+    AVG(oli.discount_pct) AS avg_discount
+
+FROM fact_order_line_items oli
+INNER JOIN dim_products p
+    ON oli.product_id = p.product_id
+INNER JOIN dim_categories cat
+    ON p.category_id = cat.category_id
+
+GROUP BY
+    cat.category_name
+
+ORDER BY avg_discount DESC;
