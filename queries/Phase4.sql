@@ -149,3 +149,61 @@ GROUP BY
     cat.category_name
 
 ORDER BY avg_discount DESC;
+
+/* Customer Order Performance Summary:
+   Join customers, orders, order line items, regions, and sales reps
+   to show total orders, total quantity purchased, and total revenue per customer. */
+SELECT
+    c.customer_id,
+    c.customer_name,
+    c.country_name,
+    r.region_name,
+    sr.first_name,
+    sr.last_name,
+    COUNT(DISTINCT o.order_id) AS total_orders,
+    SUM(oli.quantity) AS total_quantity_purchased,
+    SUM(oli.line_total) AS total_revenue
+FROM dim_customers c
+JOIN fact_sales_orders o
+    ON c.customer_id = o.customer_id
+JOIN fact_order_line_items oli
+    ON o.order_id = oli.order_id
+JOIN dim_regions r
+    ON o.region_id = r.region_id
+JOIN dim_sales_reps sr
+    ON o.sales_rep_id = sr.sales_rep_id
+GROUP BY
+    c.customer_id,
+    c.customer_name,
+    c.country_name,
+    r.region_name,
+    sr.first_name,
+    sr.last_name
+ORDER BY total_revenue DESC;
+
+/* Returns Analysis by Product and Region:
+   Join returns, order line items, products, orders, and regions
+   to identify returned products and estimate their financial impact by region. */
+SELECT
+    p.product_id,
+    p.product_name,
+    r.region_name,
+    COUNT(fr.return_id) AS total_returns,
+    SUM(fr.return_quantity) AS total_returned_quantity,
+    SUM(
+        (oli.line_total * 1.0 / NULLIF(oli.quantity, 0)) * fr.return_quantity
+    ) AS estimated_return_value
+FROM fact_returns fr
+JOIN fact_order_line_items oli
+    ON fr.line_item_id = oli.line_item_id
+JOIN dim_products p
+    ON oli.product_id = p.product_id
+JOIN fact_sales_orders o
+    ON oli.order_id = o.order_id
+JOIN dim_regions r
+    ON o.region_id = r.region_id
+GROUP BY
+    p.product_id,
+    p.product_name,
+    r.region_name
+ORDER BY estimated_return_value DESC;
