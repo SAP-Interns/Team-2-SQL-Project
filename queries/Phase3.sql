@@ -34,6 +34,45 @@ GROUP BY
 ORDER BY
     d.quarter_num;
 
+/* Gross Margin % per product */
+SELECT
+    p.product_id,
+    p.product_name,
+    
+    SUM(oli.line_total) AS total_revenue,
+    SUM(oli.quantity * p.unit_cost) AS total_cost,
+
+    SUM(oli.line_total - (oli.quantity * p.unit_cost)) AS gross_profit,
+
+    ROUND(
+        (SUM(oli.line_total - (oli.quantity * p.unit_cost)) 
+        / NULLIF(SUM(oli.line_total), 0)) * 100, 
+    2) AS gross_margin_pct
+
+FROM fact_order_line_items oli
+
+JOIN dim_products p
+    ON oli.product_id = p.product_id
+
+GROUP BY
+    p.product_id,
+    p.product_name
+
+ORDER BY gross_margin_pct DESC;
+
+
+/* Average Order Value */
+SELECT
+    COUNT(DISTINCT order_id) AS total_orders,
+    SUM(net_total) AS total_revenue,
+
+    ROUND(
+        SUM(net_total) * 1.0 
+        / NULLIF(COUNT(DISTINCT order_id), 0),
+    2) AS average_order_value
+
+FROM fact_sales_orders;
+
 
 /*12. Find all sales representatives who generated more than 500,000 in net revenue in a single
 quarter but whose quota attainment in that same quarter was below 80%. This requires
