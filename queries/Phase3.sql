@@ -61,17 +61,42 @@ GROUP BY
 ORDER BY gross_margin_pct DESC;
 
 
-/* Average Order Value */
+/* Quota Attainment */
 SELECT
-    COUNT(DISTINCT order_id) AS total_orders,
-    SUM(net_total) AS total_revenue,
-
+    s.sales_rep_id,
+    s.first_name,
+    s.last_name,
+    d.year_num,
+    d.month_num,
+    SUM(o.net_total) AS actual_revenue,
+    SUM(q.quota_target) AS total_quota_target,
     ROUND(
-        SUM(net_total) * 1.0 
-        / NULLIF(COUNT(DISTINCT order_id), 0),
-    2) AS average_order_value
+        SUM(o.net_total) * 100.0 / NULLIF(SUM(q.quota_target), 0),
+        2
+    ) AS quota_attainment_pct
+FROM fact_sales_orders o
+JOIN dim_date d
+    ON o.order_date_id = d.date_id
+JOIN dim_sales_reps s
+    ON o.sales_rep_id = s.sales_rep_id
+JOIN fact_quotas q
+    ON o.sales_rep_id = q.sales_rep_id
+JOIN dim_date dq
+    ON q.date_id = dq.date_id
+WHERE q.quota_period_type = 'Monthly'
+  AND d.year_num = dq.year_num
+  AND d.month_num = dq.month_num
+GROUP BY
+    s.sales_rep_id,
+    s.first_name,
+    s.last_name,
+    d.year_num,
+    d.month_num
+ORDER BY
+    s.sales_rep_id,
+    d.year_num,
+    d.month_num;
 
-FROM fact_sales_orders;
 
 
 /*12. Find all sales representatives who generated more than 500,000 in net revenue in a single
