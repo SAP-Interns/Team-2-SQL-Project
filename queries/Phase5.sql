@@ -295,11 +295,6 @@ WITH monthly_revenue AS (
         d.month_num
 )
 
-SELECT
-    year_num,
-    month_num,
-    total_revenue
+SELECT *
 FROM monthly_revenue
-ORDER BY
-    year_num,
-    month_num;
+ORDER BY year_num, month_num;
