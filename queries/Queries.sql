@@ -136,7 +136,7 @@ SELECT
     account_tier
 FROM dbo.dim_customers
 WHERE account_tier = 'Gold'
-  AND credit_limit > 20000
+  AND credit_limit > 50000
 ORDER BY credit_limit DESC;
 
 /* Phase 2 Query 2: High markup products (list price more than three times unit cost) */

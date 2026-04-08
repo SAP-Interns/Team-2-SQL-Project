@@ -134,21 +134,24 @@ GROUP BY
 
 ORDER BY total_revenue DESC;
 
-/* Phase 4 Query 2 - Average Discount by Category */
+/* Phase 4 Query 2: Product Cost vs Actual Sell Price */
 SELECT
+    p.product_name,
+    p.sku,
     cat.category_name,
-    AVG(oli.discount_pct) AS avg_discount
-
-FROM fact_order_line_items oli
-INNER JOIN dim_products p
+    oli.quantity,
+    p.unit_cost,
+    CAST(oli.line_total / NULLIF(oli.quantity, 0) AS DECIMAL(10,2)) AS actual_unit_sell_price,
+    CAST(
+        (oli.line_total / NULLIF(oli.quantity, 0)) - p.unit_cost
+        AS DECIMAL(10,2)
+    ) AS unit_margin
+FROM dbo.fact_order_line_items AS oli
+INNER JOIN dbo.dim_products AS p
     ON oli.product_id = p.product_id
-INNER JOIN dim_categories cat
+INNER JOIN dbo.dim_categories AS cat
     ON p.category_id = cat.category_id
-
-GROUP BY
-    cat.category_name
-
-ORDER BY avg_discount DESC;
+ORDER BY unit_margin DESC, p.product_name ASC;
 
 /* Customer Order Performance Summary:
    Join customers, orders, order line items, regions, and sales reps
