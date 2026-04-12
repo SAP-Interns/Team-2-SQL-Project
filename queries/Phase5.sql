@@ -349,91 +349,54 @@ ORDER BY
     customer_name;
 
 
-/* Phase 5 Query 2 - Most Frequently Purchased Product Pairs by High-Value Customers
-   Identify product combinations most often bought together in the same order
-   by customers whose lifetime revenue is above the overall average customer revenue.
-   This uses CTEs, a self-join, and ranking logic.
+/* Phase 5 Query 2 - Most Purchased Products by High-Value Customers
+   Identify the products purchased most often by customers whose total lifetime
+   revenue is above the overall average customer revenue.
+   This uses a CTE, a subquery, aggregation, and ROW_NUMBER() ranking logic.
 */
-WITH customer_lifetime_revenue AS (
+WITH high_value_customers AS (
     SELECT
-        o.customer_id,
-        SUM(o.net_total) AS lifetime_revenue
+        o.customer_id
     FROM dbo.fact_sales_orders AS o
     GROUP BY
         o.customer_id
-),
-high_value_customers AS (
-    SELECT
-        customer_id,
-        lifetime_revenue
-    FROM customer_lifetime_revenue
-    WHERE lifetime_revenue > (
-        SELECT AVG(lifetime_revenue * 1.0)
-        FROM customer_lifetime_revenue
+    HAVING SUM(o.net_total) > (
+        SELECT AVG(customer_revenue * 1.0)
+        FROM (
+            SELECT
+                customer_id,
+                SUM(net_total) AS customer_revenue
+            FROM dbo.fact_sales_orders
+            GROUP BY
+                customer_id
+        ) AS revenue_summary
     )
 ),
-product_pairs AS (
+product_sales AS (
     SELECT
-        o.customer_id,
-        li1.order_id,
-        li1.product_id AS product_1_id,
-        li2.product_id AS product_2_id
+        p.product_id,
+        p.product_name,
+        SUM(li.quantity) AS total_quantity_sold,
+        SUM(li.line_total) AS total_revenue
     FROM dbo.fact_sales_orders AS o
     INNER JOIN high_value_customers AS hvc
         ON o.customer_id = hvc.customer_id
-    INNER JOIN dbo.fact_order_line_items AS li1
-        ON o.order_id = li1.order_id
-    INNER JOIN dbo.fact_order_line_items AS li2
-        ON o.order_id = li2.order_id
-       AND li1.product_id < li2.product_id
-),
-pair_frequency AS (
-    SELECT
-        pp.product_1_id,
-        p1.product_name AS product_1_name,
-        pp.product_2_id,
-        p2.product_name AS product_2_name,
-        COUNT(*) AS times_bought_together,
-        COUNT(DISTINCT pp.order_id) AS order_count,
-        COUNT(DISTINCT pp.customer_id) AS customer_count
-    FROM product_pairs AS pp
-    INNER JOIN dbo.dim_products AS p1
-        ON pp.product_1_id = p1.product_id
-    INNER JOIN dbo.dim_products AS p2
-        ON pp.product_2_id = p2.product_id
+    INNER JOIN dbo.fact_order_line_items AS li
+        ON o.order_id = li.order_id
+    INNER JOIN dbo.dim_products AS p
+        ON li.product_id = p.product_id
     GROUP BY
-        pp.product_1_id,
-        p1.product_name,
-        pp.product_2_id,
-        p2.product_name
-),
-ranked_pairs AS (
-    SELECT
-        product_1_id,
-        product_1_name,
-        product_2_id,
-        product_2_name,
-        times_bought_together,
-        order_count,
-        customer_count,
-        ROW_NUMBER() OVER (
-            ORDER BY times_bought_together DESC,
-                     order_count DESC,
-                     product_1_name ASC,
-                     product_2_name ASC
-        ) AS pair_rank
-    FROM pair_frequency
+        p.product_id,
+        p.product_name
 )
 SELECT
-    pair_rank,
-    product_1_id,
-    product_1_name,
-    product_2_id,
-    product_2_name,
-    times_bought_together,
-    order_count,
-    customer_count
-FROM ranked_pairs
-WHERE pair_rank <= 10
+    ROW_NUMBER() OVER (
+        ORDER BY total_quantity_sold DESC, total_revenue DESC, product_name ASC
+    ) AS product_rank,
+    product_id,
+    product_name,
+    total_quantity_sold,
+    total_revenue
+FROM product_sales
 ORDER BY
-    pair_rank;
+    product_rank;
