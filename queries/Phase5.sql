@@ -264,11 +264,18 @@ WHERE NOT EXISTS (
 )
 ORDER BY p.product_name;
 
-/* Phase 5 Query 1 — Top Customer Per Country
-   Identify the single highest-revenue customer in each country by calculating customer revenue 
-   and ranking customers within each country using ROW_NUMBER().
+
+/* Phase 5 Query 1 - Top Customer Per Country 
+   Identify the single highest-revenue customer in each country for the current year 
+   by calculating customer revenue and ranking customers within each country using ROW_NUMBER().
 */
-WITH customer_revenue AS (
+WITH latest_sales_year AS (
+    SELECT MAX(d.year_num) AS max_year
+    FROM dbo.fact_sales_orders AS o
+    INNER JOIN dbo.dim_date AS d
+        ON o.order_date_id = d.date_id
+),
+customer_revenue AS (
     SELECT
         c.customer_id,
         c.customer_name,
@@ -280,10 +287,8 @@ WITH customer_revenue AS (
         ON o.customer_id = c.customer_id
     INNER JOIN dbo.dim_date AS d
         ON o.order_date_id = d.date_id
-    WHERE d.year_num = (
-        SELECT MAX(year_num)
-        FROM dbo.dim_date
-    )
+    CROSS JOIN latest_sales_year AS y
+    WHERE d.year_num = y.max_year
     GROUP BY
         c.customer_id,
         c.customer_name,
@@ -299,7 +304,7 @@ ranked_customers AS (
         total_revenue,
         ROW_NUMBER() OVER (
             PARTITION BY country_name
-            ORDER BY total_revenue DESC
+            ORDER BY total_revenue DESC, customer_name ASC
         ) AS customer_rank
     FROM customer_revenue
 )
@@ -316,19 +321,18 @@ ORDER BY
     country_name,
     customer_name;
 
+
 /* Phase 5 Query 2 - Month-over-Month Revenue Change by Country 
-   Calculate month-over-month revenue change for each country by comparing each month’s revenue 
-   with the previous month using the LAG() window function.
+   Measure how net revenue changes from one month to the next within each country by comparing each month’s revenue 
+   to the previous month using the LAG() window function.
 */
 WITH monthly_revenue AS (
     SELECT
         d.year_num,
         d.month_num,
         c.country_name,
-        SUM(oli.line_total) AS total_revenue
+        SUM(o.net_total) AS total_revenue
     FROM dbo.fact_sales_orders AS o
-    INNER JOIN dbo.fact_order_line_items AS oli
-        ON o.order_id = oli.order_id
     INNER JOIN dbo.dim_date AS d
         ON o.order_date_id = d.date_id
     INNER JOIN dbo.dim_customers AS c

@@ -180,11 +180,11 @@ SELECT
     p.product_name,
     p.unit_cost,
     p.list_price,
-    CAST(((p.list_price - p.unit_cost) / NULLIF(p.list_price, 0)) * 100.0 AS DECIMAL(10,2)) AS gross_margin_pct
+    CAST(((p.list_price - p.unit_cost) / NULLIF(p.list_price, 0)) * 100.0 AS DECIMAL(10,2)) AS margin_pct_on_price
 FROM dbo.dim_products AS p
 WHERE p.list_price > 3 * p.unit_cost
 ORDER BY
-    gross_margin_pct DESC,
+    margin_pct_on_price DESC,
     p.product_name ASC;
 
 
@@ -193,26 +193,28 @@ ORDER BY
    ========================= */
 
 /* Phase 3 Query 1: Gross revenue by month and country
-   Calculate gross revenue by month and country by summing line-item quantity 
-   multiplied by unit price before any discounts are applied. 
+   Calculate gross revenue by month and country by summing line-item quantity
+   multiplied by unit price before any discounts are applied.
 */
 SELECT
-    YEAR(o.created_at) AS order_year,
-    MONTH(o.created_at) AS order_month,
+    d.year_num,
+    d.month_num,
     c.country_name,
-    ROUND(SUM(li.quantity * li.unit_price), 2) AS gross_revenue
+    CAST(SUM(li.quantity * li.unit_price) AS DECIMAL(14,2)) AS gross_revenue
 FROM dbo.fact_order_line_items AS li
-JOIN dbo.fact_sales_orders AS o
+INNER JOIN dbo.fact_sales_orders AS o
     ON li.order_id = o.order_id
-JOIN dbo.dim_customers AS c
+INNER JOIN dbo.dim_date AS d
+    ON o.order_date_id = d.date_id
+INNER JOIN dbo.dim_customers AS c
     ON o.customer_id = c.customer_id
 GROUP BY
-    YEAR(o.created_at),
-    MONTH(o.created_at),
+    d.year_num,
+    d.month_num,
     c.country_name
 ORDER BY
-    order_year,
-    order_month,
+    d.year_num,
+    d.month_num,
     c.country_name;
 
 /* Phase 3 Query 2: Average Order Value (AOV) by region and month 
@@ -220,21 +222,21 @@ ORDER BY
    the number of orders in each regional time period.
 */
 SELECT
-    YEAR(o.created_at) AS order_year,
-    MONTH(o.created_at) AS order_month,
+    d.year_num,
+    d.month_num,
     r.region_name,
-    ROUND(SUM(o.net_total) / NULLIF(COUNT(o.order_id), 0), 2) AS avg_order_value,
+    CAST(SUM(o.net_total) / NULLIF(COUNT(o.order_id), 0) AS DECIMAL(12,2)) AS avg_order_value,
     COUNT(o.order_id) AS order_count
 FROM dbo.fact_sales_orders AS o
-JOIN dbo.dim_customers AS c
-    ON o.customer_id = c.customer_id
-JOIN dbo.dim_regions AS r
-    ON c.region_id = r.region_id
+INNER JOIN dbo.dim_date AS d
+    ON o.order_date_id = d.date_id
+INNER JOIN dbo.dim_regions AS r
+    ON o.region_id = r.region_id
 GROUP BY
-    YEAR(o.created_at),
-    MONTH(o.created_at),
+    d.year_num,
+    d.month_num,
     r.region_name
 ORDER BY
-    order_year,
-    order_month,
+    d.year_num,
+    d.month_num,
     r.region_name;
