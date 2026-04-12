@@ -264,42 +264,139 @@ WHERE NOT EXISTS (
 )
 ORDER BY p.product_name;
 
-/* Phase 5 Query 1 - Rank Products by Revenue */
 
-SELECT
-    p.product_name,
-    SUM(oli.line_total) AS total_revenue,
-    RANK() OVER (ORDER BY SUM(oli.line_total) DESC) AS revenue_rank
-
-FROM fact_order_line_items oli
-INNER JOIN dim_products p
-    ON oli.product_id = p.product_id
-
-GROUP BY
-    p.product_name;
-
-/* Phase 5 Query 2 - Monthly Revenue Trend */
-
-WITH monthly_revenue AS (
+/* Phase 5 Query 1 - Customer Churn Risk Based on Quarterly Order Decline
+   Identify customers whose order activity dropped from the previous quarter.
+   This uses CTEs and LAG() to compare each customer's quarterly order count
+   and net revenue against the immediately prior quarter.
+*/
+WITH customer_quarterly_activity AS (
     SELECT
+        o.customer_id,
+        c.customer_name,
+        c.account_tier,
         d.year_num,
-        d.month_num,
-        SUM(oli.line_total) AS total_revenue
-    FROM fact_sales_orders o
-    INNER JOIN fact_order_line_items oli
-        ON o.order_id = oli.order_id
-    INNER JOIN dim_date d
+        d.quarter_num,
+        COUNT(DISTINCT o.order_id) AS order_count,
+        SUM(o.net_total) AS quarter_revenue
+    FROM dbo.fact_sales_orders AS o
+    INNER JOIN dbo.dim_customers AS c
+        ON o.customer_id = c.customer_id
+    INNER JOIN dbo.dim_date AS d
         ON o.order_date_id = d.date_id
     GROUP BY
+        o.customer_id,
+        c.customer_name,
+        c.account_tier,
         d.year_num,
-        d.month_num
+        d.quarter_num
+),
+activity_with_previous AS (
+    SELECT
+        customer_id,
+        customer_name,
+        account_tier,
+        year_num,
+        quarter_num,
+        order_count,
+        quarter_revenue,
+        LAG(order_count) OVER (
+            PARTITION BY customer_id
+            ORDER BY year_num, quarter_num
+        ) AS previous_quarter_order_count,
+        LAG(quarter_revenue) OVER (
+            PARTITION BY customer_id
+            ORDER BY year_num, quarter_num
+        ) AS previous_quarter_revenue
+    FROM customer_quarterly_activity
 )
-
 SELECT
+    customer_id,
+    customer_name,
+    account_tier,
     year_num,
-    month_num,
-    total_revenue
-FROM monthly_revenue
+    quarter_num,
+    order_count,
+    previous_quarter_order_count,
+    quarter_revenue,
+    previous_quarter_revenue,
+    order_count - previous_quarter_order_count AS order_count_change,
+    quarter_revenue - previous_quarter_revenue AS revenue_change,
+    CAST(
+        (quarter_revenue - previous_quarter_revenue) * 100.0
+        / NULLIF(previous_quarter_revenue, 0)
+        AS DECIMAL(10,2)
+    ) AS revenue_pct_change,
+    CASE
+        WHEN previous_quarter_order_count IS NULL THEN 'New / No Prior Quarter'
+        WHEN order_count = 0 AND previous_quarter_order_count > 0 THEN 'High Churn Risk'
+        WHEN order_count < previous_quarter_order_count
+             AND quarter_revenue < previous_quarter_revenue THEN 'At Risk'
+        WHEN order_count < previous_quarter_order_count THEN 'Declining Frequency'
+        WHEN quarter_revenue < previous_quarter_revenue THEN 'Declining Revenue'
+        ELSE 'Stable / Growing'
+    END AS churn_risk_status
+FROM activity_with_previous
+WHERE previous_quarter_order_count IS NOT NULL
+  AND (
+        order_count < previous_quarter_order_count
+        OR quarter_revenue < previous_quarter_revenue
+      )
 ORDER BY
-    year_num,
-    month_num;
+    year_num DESC,
+    quarter_num DESC,
+    revenue_pct_change ASC,
+    customer_name;
+
+
+/* Phase 5 Query 2 - Most Purchased Products by High-Value Customers
+   Identify the products purchased most often by customers whose total lifetime
+   revenue is above the overall average customer revenue.
+   This uses a CTE, a subquery, aggregation, and ROW_NUMBER() ranking logic.
+*/
+WITH high_value_customers AS (
+    SELECT
+        o.customer_id
+    FROM dbo.fact_sales_orders AS o
+    GROUP BY
+        o.customer_id
+    HAVING SUM(o.net_total) > (
+        SELECT AVG(customer_revenue * 1.0)
+        FROM (
+            SELECT
+                customer_id,
+                SUM(net_total) AS customer_revenue
+            FROM dbo.fact_sales_orders
+            GROUP BY
+                customer_id
+        ) AS revenue_summary
+    )
+),
+product_sales AS (
+    SELECT
+        p.product_id,
+        p.product_name,
+        SUM(li.quantity) AS total_quantity_sold,
+        SUM(li.line_total) AS total_revenue
+    FROM dbo.fact_sales_orders AS o
+    INNER JOIN high_value_customers AS hvc
+        ON o.customer_id = hvc.customer_id
+    INNER JOIN dbo.fact_order_line_items AS li
+        ON o.order_id = li.order_id
+    INNER JOIN dbo.dim_products AS p
+        ON li.product_id = p.product_id
+    GROUP BY
+        p.product_id,
+        p.product_name
+)
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY total_quantity_sold DESC, total_revenue DESC, product_name ASC
+    ) AS product_rank,
+    product_id,
+    product_name,
+    total_quantity_sold,
+    total_revenue
+FROM product_sales
+ORDER BY
+    product_rank;
