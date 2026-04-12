@@ -264,42 +264,118 @@ WHERE NOT EXISTS (
 )
 ORDER BY p.product_name;
 
-/* Phase 5 Query 1 - Rank Products by Revenue */
+
+/* Phase 5 Query 1 - Top Customer Per Country 
+   Identify the single highest-revenue customer in each country for the current year 
+   by calculating customer revenue and ranking customers within each country using ROW_NUMBER().
+*/
+WITH latest_sales_year AS (
+    SELECT MAX(d.year_num) AS max_year
+    FROM dbo.fact_sales_orders AS o
+    INNER JOIN dbo.dim_date AS d
+        ON o.order_date_id = d.date_id
+),
+customer_revenue AS (
+    SELECT
+        c.customer_id,
+        c.customer_name,
+        c.account_tier,
+        c.country_name,
+        SUM(o.net_total) AS total_revenue
+    FROM dbo.fact_sales_orders AS o
+    INNER JOIN dbo.dim_customers AS c
+        ON o.customer_id = c.customer_id
+    INNER JOIN dbo.dim_date AS d
+        ON o.order_date_id = d.date_id
+    CROSS JOIN latest_sales_year AS y
+    WHERE d.year_num = y.max_year
+    GROUP BY
+        c.customer_id,
+        c.customer_name,
+        c.account_tier,
+        c.country_name
+),
+ranked_customers AS (
+    SELECT
+        customer_id,
+        customer_name,
+        account_tier,
+        country_name,
+        total_revenue,
+        ROW_NUMBER() OVER (
+            PARTITION BY country_name
+            ORDER BY total_revenue DESC, customer_name ASC
+        ) AS customer_rank
+    FROM customer_revenue
+)
 
 SELECT
-    p.product_name,
-    SUM(oli.line_total) AS total_revenue,
-    RANK() OVER (ORDER BY SUM(oli.line_total) DESC) AS revenue_rank
+    customer_id,
+    customer_name,
+    account_tier,
+    country_name,
+    total_revenue
+FROM ranked_customers
+WHERE customer_rank = 1
+ORDER BY
+    country_name,
+    customer_name;
 
-FROM fact_order_line_items oli
-INNER JOIN dim_products p
-    ON oli.product_id = p.product_id
 
-GROUP BY
-    p.product_name;
-
-/* Phase 5 Query 2 - Monthly Revenue Trend */
-
+/* Phase 5 Query 2 - Month-over-Month Revenue Change by Country 
+   Measure how net revenue changes from one month to the next within each country by comparing each month’s revenue 
+   to the previous month using the LAG() window function.
+*/
 WITH monthly_revenue AS (
     SELECT
         d.year_num,
         d.month_num,
-        SUM(oli.line_total) AS total_revenue
-    FROM fact_sales_orders o
-    INNER JOIN fact_order_line_items oli
-        ON o.order_id = oli.order_id
-    INNER JOIN dim_date d
+        c.country_name,
+        SUM(o.net_total) AS total_revenue
+    FROM dbo.fact_sales_orders AS o
+    INNER JOIN dbo.dim_date AS d
         ON o.order_date_id = d.date_id
+    INNER JOIN dbo.dim_customers AS c
+        ON o.customer_id = c.customer_id
     GROUP BY
         d.year_num,
-        d.month_num
+        d.month_num,
+        c.country_name
 )
 
 SELECT
     year_num,
     month_num,
+    country_name,
+    total_revenue,
+    LAG(total_revenue) OVER (
+        PARTITION BY country_name
+        ORDER BY year_num, month_num
+    ) AS previous_month_revenue,
     total_revenue
+        - LAG(total_revenue) OVER (
+            PARTITION BY country_name
+            ORDER BY year_num, month_num
+        ) AS revenue_change,
+    CAST(
+        (
+            total_revenue
+            - LAG(total_revenue) OVER (
+                PARTITION BY country_name
+                ORDER BY year_num, month_num
+            )
+        ) * 100.0
+        / NULLIF(
+            LAG(total_revenue) OVER (
+                PARTITION BY country_name
+                ORDER BY year_num, month_num
+            ),
+            0
+        )
+        AS DECIMAL(10,2)
+    ) AS pct_change
 FROM monthly_revenue
 ORDER BY
+    country_name,
     year_num,
     month_num;
