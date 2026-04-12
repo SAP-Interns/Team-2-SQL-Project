@@ -114,28 +114,38 @@ WHERE d.date_id IS NULL
   AND p.is_active = 1;
 
   
-  /* Phase 4 Query 1 - Top Customers by Revenue */
+  /* Phase 4 Query 1: Revenue by Geography 
+     To calculate total sales revenue across the geographic hierarchy 
+     by joining orders, line items, customers, and regions.
+  */
 SELECT
-    c.customer_name,
     r.country_name,
-    SUM(oli.line_total) AS total_revenue
-
-FROM fact_sales_orders o
-INNER JOIN fact_order_line_items oli
+    r.region_name,
+    r.territory_name,
+    ROUND(SUM(oli.line_total), 2) AS total_revenue
+FROM dbo.fact_sales_orders AS o
+INNER JOIN dbo.fact_order_line_items AS oli
     ON o.order_id = oli.order_id
-INNER JOIN dim_customers c
+INNER JOIN dbo.dim_customers AS c
     ON o.customer_id = c.customer_id
-INNER JOIN dim_regions r
-    ON o.region_id = r.region_id
-
+INNER JOIN dbo.dim_regions AS r
+    ON c.region_id = r.region_id
 GROUP BY
-    c.customer_name,
-    r.country_name
+    r.country_name,
+    r.region_name,
+    r.territory_name
+ORDER BY
+    r.country_name ASC,
+    r.region_name ASC,
+    r.territory_name ASC;
 
-ORDER BY total_revenue DESC;
-
-/* Phase 4 Query 2: Product Cost vs Actual Sell Price */
+/* Phase 4 Query 2 – Product Cost vs Actual Sell Price
+   To compare the actual selling price per unit on each order line with the product’s 
+   standard unit cost in order to measure realized unit margin.
+*/
 SELECT
+    oli.order_id,
+    oli.order_line_id,
     p.product_name,
     p.sku,
     cat.category_name,
@@ -151,7 +161,9 @@ INNER JOIN dbo.dim_products AS p
     ON oli.product_id = p.product_id
 INNER JOIN dbo.dim_categories AS cat
     ON p.category_id = cat.category_id
-ORDER BY unit_margin DESC, p.product_name ASC;
+ORDER BY
+    unit_margin DESC,
+    p.product_name ASC;
 
 /* Customer Order Performance Summary:
    Join customers, orders, order line items, regions, and sales reps

@@ -93,7 +93,10 @@ ORDER BY total_revenue DESC;
    Phase 1 – Validation Queries
    ========================= */
 
-/* Phase 1 Validation Query 1: Inspect high-credit customer records */
+/* Phase 1 Validation Query 1: Inspect high-credit customer records and validate key customer fields 
+   Inspect high-credit customer records while also validating whether important customer dimension fields 
+   are complete and logically valid.
+*/
 SELECT
     c.customer_id,
     c.customer_name,
@@ -102,12 +105,25 @@ SELECT
     c.city,
     c.country_name,
     c.credit_limit,
-    c.account_tier
+    c.account_tier,
+    CASE
+        WHEN c.customer_code IS NULL OR LTRIM(RTRIM(c.customer_code)) = '' THEN 'Missing customer code'
+        WHEN c.customer_name IS NULL OR LTRIM(RTRIM(c.customer_name)) = '' THEN 'Missing customer name'
+        WHEN c.country_name IS NULL OR LTRIM(RTRIM(c.country_name)) = '' THEN 'Missing country'
+        WHEN c.credit_limit IS NULL THEN 'Missing credit limit'
+        WHEN c.credit_limit < 0 THEN 'Invalid credit limit'
+        ELSE 'Valid'
+    END AS validation_status
 FROM dbo.dim_customers AS c
 WHERE c.credit_limit > 45000
-ORDER BY c.credit_limit DESC, c.customer_name ASC;
+ORDER BY
+    c.credit_limit DESC,
+    c.customer_name ASC;
 
-/* Phase 1 Validation Query 2: Inspect high-value sales orders */
+/* Phase 1 Validation Query 2: Inspect high-value sales orders and validate key order fields   
+   Inspect high-value sales orders while also validating whether key transactional fields 
+   are present and logically usable for later analysis.
+*/
 SELECT
     o.order_id,
     o.order_number,
@@ -115,72 +131,110 @@ SELECT
     o.sales_rep_id,
     o.order_status,
     o.net_total,
-    o.order_date_id
+    o.order_date_id,
+    CASE
+        WHEN o.customer_id IS NULL THEN 'Missing customer'
+        WHEN o.sales_rep_id IS NULL THEN 'Missing sales rep'
+        WHEN o.order_date_id IS NULL THEN 'Missing date reference'
+        WHEN o.net_total IS NULL THEN 'Missing net total'
+        WHEN o.net_total <= 0 THEN 'Invalid total'
+        ELSE 'Valid'
+    END AS validation_status
 FROM dbo.fact_sales_orders AS o
 WHERE o.net_total > 1000
-ORDER BY o.net_total DESC, o.order_id ASC;
+ORDER BY
+    o.net_total DESC,
+    o.order_id ASC;
 
 
 /* =========================
    Phase 2 – Basic Querying
    ========================= */
 
-/* Phase 2 Query 1: High-value Gold-tier customers with high credit limit */
+/* Phase 2 Query 1: High-value Gold-tier customers in Germany with high credit limit 
+   Identify high-value Gold-tier customers in Germany whose credit limit exceeds €50,000.
+*/
 SELECT
-    customer_id,
-    customer_name,
-    customer_code,
-    city,
-    country_name,
-    credit_limit,
-    account_tier
-FROM dbo.dim_customers
-WHERE account_tier = 'Gold'
-  AND credit_limit > 50000
-ORDER BY credit_limit DESC;
+    c.customer_id,
+    c.customer_name,
+    c.customer_code,
+    c.city,
+    c.country_name,
+    c.credit_limit,
+    c.account_tier
+FROM dbo.dim_customers AS c
+WHERE c.account_tier = 'Gold'
+  AND c.country_name = 'Germany'
+  AND c.credit_limit > 50000
+ORDER BY
+    c.credit_limit DESC,
+    c.customer_name ASC;
 
-/* Phase 2 Query 2: High markup products (list price more than three times unit cost) */
+/* Phase 2 Query 2: High markup products (list price more than three times unit cost) 
+   Identify products whose list price is more than three times their unit cost, 
+   highlighting items with unusually high markup.
+*/
 SELECT
-    product_id,
-    sku,
-    product_name,
-    unit_cost,
-    list_price,
-    CAST(((list_price - unit_cost) / NULLIF(list_price, 0)) * 100.0 AS DECIMAL(10,2)) AS gross_margin_pct
-FROM dbo.dim_products
-WHERE list_price > 3 * unit_cost
-ORDER BY gross_margin_pct DESC;
+    p.product_id,
+    p.sku,
+    p.product_name,
+    p.unit_cost,
+    p.list_price,
+    CAST(((p.list_price - p.unit_cost) / NULLIF(p.list_price, 0)) * 100.0 AS DECIMAL(10,2)) AS gross_margin_pct
+FROM dbo.dim_products AS p
+WHERE p.list_price > 3 * p.unit_cost
+ORDER BY
+    gross_margin_pct DESC,
+    p.product_name ASC;
 
 
 /* =========================
    Phase 3 – Aggregations & KPIs
    ========================= */
 
-/* Phase 3 Query 1: Gross revenue by month */
+/* Phase 3 Query 1: Gross revenue by month and country
+   Calculate gross revenue by month and country by summing line-item quantity 
+   multiplied by unit price before any discounts are applied. 
+*/
 SELECT
     YEAR(o.created_at) AS order_year,
     MONTH(o.created_at) AS order_month,
+    c.country_name,
     ROUND(SUM(li.quantity * li.unit_price), 2) AS gross_revenue
 FROM dbo.fact_order_line_items AS li
 JOIN dbo.fact_sales_orders AS o
     ON li.order_id = o.order_id
+JOIN dbo.dim_customers AS c
+    ON o.customer_id = c.customer_id
 GROUP BY
     YEAR(o.created_at),
-    MONTH(o.created_at)
+    MONTH(o.created_at),
+    c.country_name
 ORDER BY
     order_year,
-    order_month;
+    order_month,
+    c.country_name;
 
-/* Phase 3 Query 2: Average Order Value (AOV) per month */
+/* Phase 3 Query 2: Average Order Value (AOV) by region and month 
+   Calculate Average Order Value by region and month by dividing total net revenue by 
+   the number of orders in each regional time period.
+*/
 SELECT
-    YEAR(created_at) AS order_year,
-    MONTH(created_at) AS order_month,
-    ROUND(AVG(net_total), 2) AS avg_order_value,
-    COUNT(order_id) AS order_count
-FROM dbo.fact_sales_orders
+    YEAR(o.created_at) AS order_year,
+    MONTH(o.created_at) AS order_month,
+    r.region_name,
+    ROUND(SUM(o.net_total) / NULLIF(COUNT(o.order_id), 0), 2) AS avg_order_value,
+    COUNT(o.order_id) AS order_count
+FROM dbo.fact_sales_orders AS o
+JOIN dbo.dim_customers AS c
+    ON o.customer_id = c.customer_id
+JOIN dbo.dim_regions AS r
+    ON c.region_id = r.region_id
 GROUP BY
-    YEAR(created_at),
-    MONTH(created_at)
+    YEAR(o.created_at),
+    MONTH(o.created_at),
+    r.region_name
 ORDER BY
     order_year,
-    order_month;
+    order_month,
+    r.region_name;
