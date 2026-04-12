@@ -115,7 +115,7 @@ WHERE d.date_id IS NULL
 
   
   /* Phase 4 Query 1: Revenue by Geography 
-     To calculate total sales revenue across the geographic hierarchy 
+     - Calculate total sales revenue across the geographic hierarchy 
      by joining orders, line items, customers, and regions.
   */
 SELECT
@@ -140,7 +140,7 @@ ORDER BY
     r.territory_name ASC;
 
 /* Phase 4 Query 2 – Product Cost vs Actual Sell Price
-   To compare the actual selling price per unit on each order line with the product’s 
+   - Compare the actual selling price per unit on each order line with the product’s 
    standard unit cost in order to measure realized unit margin.
 */
 SELECT
