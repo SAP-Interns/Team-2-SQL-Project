@@ -198,7 +198,7 @@ ORDER BY
 SELECT
     d.year_num,
     d.month_num,
-    c.country_name,
+    r.country_name,
     CAST(SUM(li.quantity * li.unit_price) AS DECIMAL(14,2)) AS gross_revenue
 FROM dbo.fact_order_line_items AS li
 INNER JOIN dbo.fact_sales_orders AS o
