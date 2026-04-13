@@ -114,41 +114,57 @@ WHERE d.date_id IS NULL
   AND p.is_active = 1;
 
   
-  /* Phase 4 Query 1 - Top Customers by Revenue */
+/* Phase 4 Query 1: Revenue by Geography
+   Calculate total sales revenue across the geographic hierarchy by joining orders, line items, and regions, 
+   while also generating subtotal rows at the country and region levels and a grand total for overall revenue.
+*/
 SELECT
-    c.customer_name,
     r.country_name,
-    SUM(oli.line_total) AS total_revenue
-
-FROM fact_sales_orders o
-INNER JOIN fact_order_line_items oli
+    r.region_name,
+    r.territory_name,
+    CAST(SUM(oli.line_total) AS DECIMAL(14,2)) AS total_revenue
+FROM dbo.fact_sales_orders AS o
+INNER JOIN dbo.fact_order_line_items AS oli
     ON o.order_id = oli.order_id
-INNER JOIN dim_customers c
-    ON o.customer_id = c.customer_id
-INNER JOIN dim_regions r
+INNER JOIN dbo.dim_regions AS r
     ON o.region_id = r.region_id
+GROUP BY ROLLUP (
+    r.country_name,
+    r.region_name,
+    r.territory_name
+)
+ORDER BY
+    r.country_name,
+    r.region_name,
+    r.territory_name;
 
-GROUP BY
-    c.customer_name,
-    r.country_name
 
-ORDER BY total_revenue DESC;
-
-/* Phase 4 Query 2 - Average Discount by Category */
+/* Phase 4 Query 2 – Product Cost vs Actual Sell Price
+   Compare the actual selling price per unit on each order line with the product’s 
+   standard unit cost in order to measure realized unit margin.
+*/
 SELECT
+    oli.line_item_id,
+    oli.order_id,
+    p.product_name,
+    p.sku,
     cat.category_name,
-    AVG(oli.discount_pct) AS avg_discount
-
-FROM fact_order_line_items oli
-INNER JOIN dim_products p
+    oli.quantity,
+    p.unit_cost,
+    CAST(oli.line_total / NULLIF(oli.quantity, 0) AS DECIMAL(10,2)) AS actual_unit_sell_price,
+    CAST(
+        (oli.line_total / NULLIF(oli.quantity, 0)) - p.unit_cost
+        AS DECIMAL(10,2)
+    ) AS unit_margin
+FROM dbo.fact_order_line_items AS oli
+INNER JOIN dbo.dim_products AS p
     ON oli.product_id = p.product_id
-INNER JOIN dim_categories cat
+INNER JOIN dbo.dim_categories AS cat
     ON p.category_id = cat.category_id
+ORDER BY
+    unit_margin DESC,
+    p.product_name ASC;
 
-GROUP BY
-    cat.category_name
-
-ORDER BY avg_discount DESC;
 
 /* Customer Order Performance Summary:
    Join customers, orders, order line items, regions, and sales reps

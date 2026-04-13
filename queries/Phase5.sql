@@ -264,11 +264,9 @@ WHERE NOT EXISTS (
 )
 ORDER BY p.product_name;
 
-
-/* Phase 5 Query 1 - Customer Churn Risk Based on Quarterly Order Decline
-   Identify customers whose order activity dropped from the previous quarter.
-   This uses CTEs and LAG() to compare each customer's quarterly order count
-   and net revenue against the immediately prior quarter.
+/* Phase 5 Query 1 - Customer Quarter-over-Quarter Activity Comparison
+   Compare each customer's quarterly order count and revenue with the previous quarter
+   using LAG() to identify customers whose activity declined.
 */
 WITH customer_quarterly_activity AS (
     SELECT
@@ -321,21 +319,7 @@ SELECT
     quarter_revenue,
     previous_quarter_revenue,
     order_count - previous_quarter_order_count AS order_count_change,
-    quarter_revenue - previous_quarter_revenue AS revenue_change,
-    CAST(
-        (quarter_revenue - previous_quarter_revenue) * 100.0
-        / NULLIF(previous_quarter_revenue, 0)
-        AS DECIMAL(10,2)
-    ) AS revenue_pct_change,
-    CASE
-        WHEN previous_quarter_order_count IS NULL THEN 'New / No Prior Quarter'
-        WHEN order_count = 0 AND previous_quarter_order_count > 0 THEN 'High Churn Risk'
-        WHEN order_count < previous_quarter_order_count
-             AND quarter_revenue < previous_quarter_revenue THEN 'At Risk'
-        WHEN order_count < previous_quarter_order_count THEN 'Declining Frequency'
-        WHEN quarter_revenue < previous_quarter_revenue THEN 'Declining Revenue'
-        ELSE 'Stable / Growing'
-    END AS churn_risk_status
+    quarter_revenue - previous_quarter_revenue AS revenue_change
 FROM activity_with_previous
 WHERE previous_quarter_order_count IS NOT NULL
   AND (
@@ -345,11 +329,10 @@ WHERE previous_quarter_order_count IS NOT NULL
 ORDER BY
     year_num DESC,
     quarter_num DESC,
-    revenue_pct_change ASC,
-    customer_name;
+    customer_name ASC;
 
 
-/* Phase 5 Query 2 - Most Purchased Products by High-Value Customers
+/* Phase 5 Query 2 - Products Purchased Most by Above-Average Revenue Customers
    Identify the products purchased most often by customers whose total lifetime
    revenue is above the overall average customer revenue.
    This uses a CTE, a subquery, aggregation, and ROW_NUMBER() ranking logic.
