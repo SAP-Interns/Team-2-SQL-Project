@@ -202,7 +202,11 @@ WITH customer_rfm AS (
         c.customer_id,
         c.customer_name,
         MAX(d.full_date) AS last_order_date,
-        DATEDIFF(DAY, MAX(d.full_date), (SELECT MAX(full_date) FROM dim_date)) AS recency_days,
+        DATEDIFF(
+            DAY,
+            MAX(d.full_date),
+            (SELECT MAX(full_date) FROM dim_date)
+        ) AS recency_days,
         COUNT(o.order_id) AS frequency_orders,
         SUM(o.net_total) AS monetary_value
     FROM dim_customers c
@@ -210,6 +214,11 @@ WITH customer_rfm AS (
         ON c.customer_id = o.customer_id
     JOIN dim_date d
         ON o.order_date_id = d.date_id
+    WHERE d.full_date >= DATEADD(
+        YEAR,
+        -1,
+        (SELECT MAX(full_date) FROM dim_date)
+    )
     GROUP BY
         c.customer_id,
         c.customer_name
