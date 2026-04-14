@@ -73,9 +73,9 @@ WHERE rn = 1
 /*Revenue by Geography: Join orders, customers, and regions to produce a complete revenue
 breakdown at Country → Region → Territory level, including subtotals.    */
 SELECT
-    c.country_name,
-    r.region_name,
-    r.territory_name,
+    COALESCE(c.country_name, 'ALL COUNTRIES') AS country_name,
+    COALESCE(r.region_name, 'ALL REGIONS') AS region_name,
+    COALESCE(r.territory_name, 'ALL TERRITORIES') AS territory_name,
     SUM(oli.line_total) AS total_revenue
 FROM fact_sales_orders o
 JOIN fact_order_line_items oli
@@ -84,10 +84,11 @@ JOIN dim_customers c
     ON o.customer_id = c.customer_id
 JOIN dim_regions r
     ON o.region_id = r.region_id
-GROUP BY
+GROUP BY ROLLUP (
     c.country_name,
     r.region_name,
     r.territory_name
+)
 ORDER BY
     c.country_name,
     r.region_name;
@@ -130,29 +131,25 @@ AND NOT EXISTS (
    Calculate total sales revenue across the geographic hierarchy by joining orders, line items, and regions, 
    while also generating subtotal rows at the country and region levels and a grand total for overall revenue.
 */
-/*4.Revenue by Geography: Join orders, customers, and regions to produce a complete revenue
-breakdown at Country → Region → Territory level, including subtotals.    */
-SELECT
-    COALESCE(c.country_name, 'ALL COUNTRIES') AS country_name,
-    COALESCE(r.region_name, 'ALL REGIONS') AS region_name,
-    COALESCE(r.territory_name, 'ALL TERRITORIES') AS territory_name,
-    SUM(oli.line_total) AS total_revenue
-FROM fact_sales_orders o
-JOIN fact_order_line_items oli
-    ON o.order_id = oli.order_id
-JOIN dim_customers c
-    ON o.customer_id = c.customer_id
-JOIN dim_regions r
-    ON o.region_id = r.region_id
-GROUP BY ROLLUP (
-    c.country_name,
-    r.region_name,
-    r.territory_name
-)
-ORDER BY
-    c.country_name,
-    r.region_name;
 
+SELECT
+    c.customer_name,
+    r.country_name,
+    SUM(oli.line_total) AS total_revenue
+
+FROM fact_sales_orders o
+INNER JOIN fact_order_line_items oli
+    ON o.order_id = oli.order_id
+INNER JOIN dim_customers c
+    ON o.customer_id = c.customer_id
+INNER JOIN dim_regions r
+    ON o.region_id = r.region_id
+
+GROUP BY
+    c.customer_name,
+    r.country_name
+
+ORDER BY total_revenue DESC;
 
 
 /* Phase 4 Query 2 – Product Cost vs Actual Sell Price
