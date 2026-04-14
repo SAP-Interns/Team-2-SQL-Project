@@ -37,28 +37,38 @@ WHERE o.order_id IS NULL;
 
 /*Rep-Customer Mismatch: Identify all orders where the sales rep who processed the order is not
 the assigned rep for that customer account according to the rep_customer_assignments table. */
-WITH latest_assignment AS (
+WITH matched_assignments AS (
     SELECT
-        rca.customer_id,
-        rca.sales_rep_id,
+        o.order_id,
+        c.customer_name,
+        o.sales_rep_id AS order_rep,
+        rca.sales_rep_id AS assigned_rep,
         ROW_NUMBER() OVER (
-            PARTITION BY rca.customer_id
-            ORDER BY rca.start_date_id DESC
+            PARTITION BY o.order_id
+            ORDER BY ad_start.full_date DESC
         ) AS rn
-    FROM rep_customer_assignments rca
+    FROM fact_sales_orders o
+    JOIN dim_customers c
+        ON o.customer_id = c.customer_id
+    JOIN dim_date od
+        ON o.order_date_id = od.date_id
+    JOIN rep_customer_assignments rca
+        ON o.customer_id = rca.customer_id
+    JOIN dim_date ad_start
+        ON rca.start_date_id = ad_start.date_id
+    LEFT JOIN dim_date ad_end
+        ON rca.end_date_id = ad_end.date_id
+    WHERE od.full_date >= ad_start.full_date
+      AND (ad_end.full_date IS NULL OR od.full_date <= ad_end.full_date)
 )
 SELECT
-    o.order_id,
-    c.customer_name,
-    o.sales_rep_id AS order_rep,
-    la.sales_rep_id AS assigned_rep
-FROM fact_sales_orders o
-JOIN dim_customers c
-    ON o.customer_id = c.customer_id
-JOIN latest_assignment la
-    ON o.customer_id = la.customer_id
-   AND la.rn = 1
-WHERE o.sales_rep_id <> la.sales_rep_id;
+    order_id,
+    customer_name,
+    order_rep,
+    assigned_rep
+FROM matched_assignments
+WHERE rn = 1
+  AND order_rep <> assigned_rep;
 
 /*Revenue by Geography: Join orders, customers, and regions to produce a complete revenue
 breakdown at Country → Region → Territory level, including subtotals.    */
@@ -103,40 +113,46 @@ SELECT
     p.product_id,
     p.product_name
 FROM dim_products p
-LEFT JOIN fact_order_line_items oli
-    ON p.product_id = oli.product_id
-LEFT JOIN fact_sales_orders o
-    ON oli.order_id = o.order_id
-LEFT JOIN dim_date d
-    ON o.order_date_id = d.date_id
-    AND d.full_date >= DATEADD(MONTH, -12, GETDATE())
-WHERE d.date_id IS NULL
-  AND p.is_active = 1;
+WHERE p.is_active = 1
+AND NOT EXISTS (
+    SELECT 1
+    FROM fact_order_line_items oli
+    JOIN fact_sales_orders o
+        ON oli.order_id = o.order_id
+    JOIN dim_date d
+        ON o.order_date_id = d.date_id
+    WHERE oli.product_id = p.product_id
+      AND d.full_date >= DATEADD(MONTH, -12, GETDATE())
+);
 
   
 /* Phase 4 Query 1: Revenue by Geography
    Calculate total sales revenue across the geographic hierarchy by joining orders, line items, and regions, 
    while also generating subtotal rows at the country and region levels and a grand total for overall revenue.
 */
+/*4.Revenue by Geography: Join orders, customers, and regions to produce a complete revenue
+breakdown at Country → Region → Territory level, including subtotals.    */
 SELECT
-    r.country_name,
-    r.region_name,
-    r.territory_name,
-    CAST(SUM(oli.line_total) AS DECIMAL(14,2)) AS total_revenue
-FROM dbo.fact_sales_orders AS o
-INNER JOIN dbo.fact_order_line_items AS oli
+    COALESCE(c.country_name, 'ALL COUNTRIES') AS country_name,
+    COALESCE(r.region_name, 'ALL REGIONS') AS region_name,
+    COALESCE(r.territory_name, 'ALL TERRITORIES') AS territory_name,
+    SUM(oli.line_total) AS total_revenue
+FROM fact_sales_orders o
+JOIN fact_order_line_items oli
     ON o.order_id = oli.order_id
-INNER JOIN dbo.dim_regions AS r
+JOIN dim_customers c
+    ON o.customer_id = c.customer_id
+JOIN dim_regions r
     ON o.region_id = r.region_id
 GROUP BY ROLLUP (
-    r.country_name,
+    c.country_name,
     r.region_name,
     r.territory_name
 )
 ORDER BY
-    r.country_name,
-    r.region_name,
-    r.territory_name;
+    c.country_name,
+    r.region_name;
+
 
 
 /* Phase 4 Query 2 – Product Cost vs Actual Sell Price
